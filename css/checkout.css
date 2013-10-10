@@ -1,0 +1,164 @@
+.descrip {
+	color:#666666;
+	display:inline-block;
+	margin:7px 8px;
+}
+.bstdl {
+	background: url("../images/register-bestdeal.gif") no-repeat scroll 223px 0 transparent;
+	height: 41px;
+	overflow: visible;
+	position: relative;
+	right: -94px;
+	text-indent: -999px;
+	top: -72px;
+	width: 300px;
+}
+.chsp1 { 
+	background: url("../images/register-arrow.gif") no-repeat scroll 185px 0 transparent;
+	color: green;
+	display: block;
+	font-size: 18px;
+	font-weight: bold;
+	margin: 20px 2px 9px 10px;
+	width: 230px;
+}
+.chsp2 { 
+	color: #333339;
+	display: block;
+	font-family: serif;
+	font-size: 14px;
+	letter-spacing: 0.02em;
+	margin: auto 10px;
+	word-spacing: 0.1em; 
+}
+.chsp3 { 
+	color: #333333;
+	display: block;
+	font-size: 16px;
+	font-weight: bold;
+	margin: 9px 10px; 
+}
+.green:hover { 
+	color:#F7F7F7;
+	background: none repeat scroll 0 0 #55D282;
+	text-decoration: none;
+}
+.blue:hover { 
+	color:#F7F7F7;
+	background: none repeat scroll 0 0 #19B3E8;
+	text-decoration: none;
+}
+.green { 
+	background: none repeat scroll 0 0 #6CCD42;
+	border-radius: 8px 8px 8px 8px;
+	color: #F7F7F7;
+	cursor: pointer;
+	font-family: status-bar;
+	font-size: 17px;
+	font-weight: bold;
+	margin-right: 12px;
+	padding: 6px 10px;
+	text-decoration: none;
+}
+.blue { 
+	background: none repeat scroll 0 0 #1B7DBF;
+	border-radius: 8px 8px 8px 8px;
+	color: #F7F7F7;
+	cursor: pointer;
+	font-family: status-bar;
+	font-size: 17px;
+	font-weight: bold;
+	margin-right: 12px;
+	padding: 6px 13px;
+	text-decoration: none;
+}
+.currenc { 
+	display: block;    
+	font-size: 20px;    
+	font-weight: bold;    
+	margin-left: 5px; 
+}
+.chk8 { 
+	font-size: 15px;   
+	margin-top: -49px; 
+}
+.chk9 { 
+	color: #9F0213;
+	float: left;
+	font-size: 15px;
+	line-height: 21px;
+	margin-top: -9px; 
+}
+.chk10 { float:right; }
+.chk11 { font-size: 15px; margin-top: 65px; }
+.chk12 { float:left;margin-top: -7px;line-height; }
+.chk13 { float:right;margin-top: 4px; }
+.specialoffer { color:#980000 }
+#off25 { 
+	background:url("../images/register-discount.gif") repeat scroll 0 0 transparent;display: block;
+	float: left;
+	height: 44px;
+	margin: 2px 7px 0 4px;
+	overflow: hidden;
+	text-indent: -999px;
+	width: 44px;
+}
+#off30 { 
+	background:url("../images/register-discount.gif") repeat scroll -49px 0 transparent;
+	display: block;
+	float: left;
+	height: 44px;
+	margin: 2px 7px 0 4px;
+	overflow: hidden;
+	text-indent: -999px;
+	width: 44px;
+}
+.chkhd {
+	font-size: 19px;
+	font-weight: bold;
+	text-align: center;
+}
+.chkbdt {
+	color: #8CC53C;
+	font-size: 12px;
+	margin: 5px 2px;
+	text-align: center;
+}
+ul.chkul li { background:url("../images/right.gif") no-repeat scroll 0 5px transparent; }
+.cleft{ float:left; }
+.cright{ float:right; }
+.chkul { margin:0 7px; }
+.chkul li { 
+	font-family: Times New Roman;
+	font-size: 15px;
+	list-style: none outside none;
+	margin: 3px;
+	padding-left: 15px; 
+}
+.chk1 { }
+.chk2 { float:left; width:25%;}
+.chk3 { float:right; width:75% }
+.chk4 {  }
+.chk5 {  }
+.chk6 { min-height:275px; }
+.chk7 { background:#FFFBE0;font-size:11px;height:160px; padding-top: 10px; }
+
+.chkx { 
+	background: none repeat scroll 0 0 #FFFEFF;
+	border: 2px solid #6DB0DC;
+	border-radius: 12px 12px 12px 12px;
+	display: inline;
+	float: left;
+	margin: 5px 6px;
+	min-height: 500px;
+	padding: 5px 3px;
+	width: 46%;
+}
+.truste {
+	background: url("../images/truste.gif") no-repeat scroll 0 5px transparent;
+	display: block;
+	height: 110px;
+	margin: auto;
+	text-align: center;
+	width: 70px;
+}
