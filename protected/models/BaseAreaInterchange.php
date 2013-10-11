@@ -14,6 +14,9 @@
  * @property string $introduced
  * @property string $region
  * @property string $county
+ * @property string $latitude
+ * @property string $longitude
+ * @property string $population
  *
  * Relations of table "area_interchange" available as properties of the model:
  * @property AreaCode $areaCode
@@ -32,13 +35,14 @@ abstract class BaseAreaInterchange extends CActiveRecord{
 	public function rules()
 	{
 		return array(
-			array('area_code', 'unique'),
-			array('area_code', 'identificationColumnValidator'),
-			array('area_code, area_interchange, company_number, company, status, usage, introduced, region, county', 'required'),
+			array('area_code, area_interchange, company_number, company, status, usage, introduced, region, county, latitude, longitude, population', 'required'),
 			array('area_code, area_interchange', 'length', 'max'=>5),
-			array('company_number, status, usage, introduced, region, county', 'length', 'max'=>55),
-			array('company', 'length', 'max'=>100),
-			array('id, area_code, area_interchange, company_number, company, status, usage, introduced, region, county', 'safe', 'on'=>'search'),
+			array('company_number', 'length', 'max'=>9),
+			array('company', 'length', 'max'=>55),
+			array('status, usage, latitude, longitude', 'length', 'max'=>15),
+			array('region, county', 'length', 'max'=>35),
+			array('population', 'length', 'max'=>11),
+			array('id, area_code, area_interchange, company_number, company, status, usage, introduced, region, county, latitude, longitude, population', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -62,6 +66,9 @@ abstract class BaseAreaInterchange extends CActiveRecord{
 			'introduced' => Yii::t('app', 'Introduced'),
 			'region' => Yii::t('app', 'Region'),
 			'county' => Yii::t('app', 'County'),
+			'latitude' => Yii::t('app', 'Latitude'),
+			'longitude' => Yii::t('app', 'Longitude'),
+			'population' => Yii::t('app', 'Population'),
 		);
 	}
 
@@ -80,6 +87,9 @@ abstract class BaseAreaInterchange extends CActiveRecord{
 		$criteria->compare('introduced', $this->introduced, true);
 		$criteria->compare('region', $this->region, true);
 		$criteria->compare('county', $this->county, true);
+		$criteria->compare('latitude', $this->latitude, true);
+		$criteria->compare('longitude', $this->longitude, true);
+		$criteria->compare('population', $this->population, true);
 
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria'=>$criteria,
