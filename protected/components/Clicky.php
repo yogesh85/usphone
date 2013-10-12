@@ -91,5 +91,10 @@ class Clicky extends CComponent {
 		);
 		else return array("interchange" => "", "url" => "#");
 	}
+	
+	public function areaCodeDirectoryUrl() {
+		return Yii::app()->baseUrl."/area-code-list";
+	}
+	
 }
 ?>

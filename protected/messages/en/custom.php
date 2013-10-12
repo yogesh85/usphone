@@ -1,14 +1,23 @@
-<?php 
-$dmnt43 = "localhost/usphone";
+<?php
+$dom = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+
+$dom_arr = explode("/", str_replace(array("http://", "https://", "www."), "", $dom));
+if(strpos($dom_arr[0], ".") == 0) {
+	$domain_parse = "$dom_arr[0]/$dom_arr[1]";
+	$full_domain_parse = "$dom_arr[0]/$dom_arr[1]";
+} else {
+	$domain_parse = $dom_arr[0];
+	$full_domain_parse = "www.".$dom_arr[0];
+}
+
 return  array (
-    "site.domain" => $dmnt43,
-    /*"site.url" => "http://".$dmnt43,*/
-    "site.url" => "http://www.calllocato.com",
+    "site.domain" => $domain_parse,
+    "site.url" => "http://$full_domain_parse",
     "site.searchform" => "<b>Search cell phones and landlines numbers owners.</b> Results give you name, address, and more.",
     "homepage.titletag" => "Reverse Phone Number Lookup | USA Reverse Phone Lookup",
     "homepage.descriptiontag" => "Get details on most American phone numbers with our reverse phone look-up service. Find out unknown caller's name, address and more.",
     "homepage.keyword" => "North American Area Code Directory, North American Phone Search",
-    "homepage.title" => "Welcome to $dmnt43",
+    "homepage.title" => "Welcome to $domain_parse",
     "homepage.header1" => "Comments",
     "homepage.header2" => "Most Recently Searched Numbers",
     "homepage.header3" => "Number Searched for Today",

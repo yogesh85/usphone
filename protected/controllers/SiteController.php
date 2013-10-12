@@ -12,6 +12,7 @@ class SiteController extends Controller
 	
 	public $areaCode;
 	public $areaInterchange;
+	public $time_zone;
 	public $lat;
 	public $long;
 	public $state;
@@ -45,10 +46,7 @@ class SiteController extends Controller
 		$this->_commentReader = new CommentReader();
 	}
 
-	/**
-	 * This is the default 'index' action that is invoked
-	 * when an action is not explicitly requested by users.
-	 */
+
 	public function actionIndex()
 	{
 		$this->pageTitle = Yii::t("custom", "homepage.titletag");
@@ -103,9 +101,6 @@ class SiteController extends Controller
 		$this->render('//site/index');
 	}
 
-	/**
-	 * This is the action to handle external exceptions.
-	 */
 	public function actionError()
 	{
 		if($error=Yii::app()->errorHandler->error)
@@ -132,7 +127,23 @@ class SiteController extends Controller
 			
 			$this->stateCode = $model->state;
 			$this->state = @$model->state0->name;
-				
+			
+			$time_zone_arr = explode(",", $model->state0->time_zone);
+			if(isset($time_zone_arr[1])) { 
+				if(strtotime("now") >= strtotime("10 March 2013") AND strtotime("now") <= strtotime("3 November 2013")) {
+					if(strpos($time_zone_arr[count($time_zone_arr) - 1], "*") > 0) {
+						@$this->time_zone = "UTC".(intval(str_replace(array("UTC", "*", " "), "", $time_zone_arr[0])) +1);
+						@$this->time_zone .= ",UTC".(intval(str_replace(array("UTC", "*", " "), "", $time_zone_arr[1])) +1);
+					} else {
+						$this->time_zone = @$time_zone_arr[1];
+					}
+				} else {
+					$this->time_zone = @$time_zone_arr[0];
+				}
+			} else {
+				$this->time_zone = @$time_zone_arr[0];
+			}	
+						
 			$criteria = new CDbCriteria();
 			$criteria->select = "lat, `long`";
 			$criteria->condition = "`area_code` = '{$this->areaCode}' AND length(`lat`) > 1 AND length(`long`) > 1";
@@ -181,12 +192,30 @@ class SiteController extends Controller
 		$this->interchangeObj = $interchange_model;
 		
 		$area_code_obj = AreaCode::model()->find("area_code = {$this->areaCode}");
+		$this->stateCode = $area_code_obj->state;
+		$this->state = $area_code_obj->state0->name;
+		
+		$time_zone_arr = explode(",", $area_code_obj->state0->time_zone);
+		if(isset($time_zone_arr[1])) { 
+			if(strtotime("now") >= strtotime("10 March 2013") AND strtotime("now") <= strtotime("3 November 2013")) {
+				if(strpos($time_zone_arr[count($time_zone_arr) - 1], "*") > 0) {
+					@$this->time_zone = "UTC".(intval(str_replace(array("UTC", "*", " "), "", $time_zone_arr[0])) +1);
+					@$this->time_zone .= ",UTC".(intval(str_replace(array("UTC", "*", " "), "", $time_zone_arr[1])) +1);
+				} else {
+					$this->time_zone = @$time_zone_arr[1];
+				}
+			} else {
+				$this->time_zone = @$time_zone_arr[0];
+			}
+		} else {
+			$this->time_zone = @$time_zone_arr[0];
+		}
+		
 		$criteria = new CDbCriteria();
-		$criteria->select = "lat, `long`, location, zip_code";
+		$criteria->select = "lat, `long`, lcase(location) as location, zip_code";
 		$criteria ->condition = "county = '{$interchange_model->county}' AND length(lat) > 0 ORDER BY population DESC";
 		$obj1 = Zip::model()->findAll($criteria);
-		$obj2 = Zip::model()->findAll("county = '{$interchange_model->county}' AND replace(location, ' ', '') like '".str_replace(" ", "", $interchange_model->region)."%' ");
-		
+				
 		$zip = "";
 		$cities = array();
 		$map = array();
@@ -197,15 +226,29 @@ class SiteController extends Controller
 				$map[] = array('lat' => $val->lat, 'long' => $val->long, 'name' => $val->location, 'zip' => $val->zip_code);
 			}
 		}
-		
-		$this->lat = @$map[0]['lat'];
-		$this->long = @$map[0]['long'];
-		$zip = @$map[0]['zip_code'];
+		if(!empty($interchange_model->latitude) AND $interchange_model->latitude > 0) {
+			$this->lat = $interchange_model->latitude;
+			$this->lat = $interchange_model->longitude;
+		} else {
+			$this->lat = @$map[0]['lat'];
+			$this->long = @$map[0]['long'];
+		}
 				
+		$criteria = new CDbCriteria();
+		$criteria->select = "*, (((acos(sin(({$this->lat}*pi()/180)) * sin((`lat`*pi()/180))+cos(({$this->lat}*pi()/180)) * cos((`lat`*pi()/180)) * cos((({$this->long}- `long`)* pi()/180))))*180/pi())*60*1.1515	) as distance";
+		if(!empty($interchange_model->county)) $criteria->condition = "state = '{$this->stateCode}' AND county IN(\"".implode('", "', explode("/", str_replace(array(" / ", " /", "/ "), "/", $interchange_model->county)))."\")";
+		else $criteria->condition = "state = '{$this->stateCode}'";
+		$criteria->order = "distance";
+		$criteria->limit = 10;
+		$obj2 = Zip::model()->findAll($criteria);
+		//$obj2 = Zip::model()->findAll("county = '{$interchange_model->county}' AND replace(location, ' ', '') like '".str_replace(" ", "", $interchange_model->region)."%' ");							
 		$zip_code_arr = array();
 		foreach($obj2 as $val) {
 			$zip_code_arr[] = $val->zip_code;
 		}
+
+		/*take min distance from zip and get zip code*/
+		$zip = @$zip_code_arr[0];
 		
 		$criteria = new CDbCriteria();
 		$criteria->select = "population";
@@ -236,6 +279,32 @@ class SiteController extends Controller
 		$places = Places::model()->findAll("county = '{$params['{county}']}'");
 		
 		$this->comments = $this->_commentReader->getRecentComments(Constants::$COMMENTS_AREA_INTERCHANGE, null, $this->areaCode, $this->areaInterchange);
+	
+	
+		$phone = array();
+		while(true) { 
+			$criteria = new CDbCriteria();
+			$criteria -> select = "phone_number";
+			$criteria -> order = "timestamp DESC";
+			$criteria -> limit = Constants::HOME_SEARCHED_NUMBER_COUNT - count($phone);
+			if(count($phone) > 0) {
+				$criteria -> condition = "phone_number NOT IN ('".implode("', '", $phone)."') AND action = 'detail'";
+			} else {
+				$criteria -> condition = "action = 'detail'";
+			}
+			$analytics = Analytics::model()->findAll($criteria);
+			unset($criteria);
+			if(count($analytics) == 0) break;
+			foreach($analytics as $val) {
+				if(!in_array($val['phone_number'], $phone)) $phone[] = $val['phone_number'];
+				if(count($phone) >= Constants::HOME_SEARCHED_NUMBER_COUNT) break;
+			}
+			unset($analytics);
+			if(count($phone) >= Constants::HOME_SEARCHED_NUMBER_COUNT) break;
+		}
+		$this->recently_searched_number = $phone;
+		unset($phone);
+		
 		
 		$this->render('//site/areaInterchange', array(
 			'zip_codes' => $zip_code_arr, 

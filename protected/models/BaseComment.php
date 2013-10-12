@@ -17,14 +17,57 @@
  * There are no model relations.
  */
 abstract class BaseComment extends CActiveRecord{
+	
+	
+    protected $areaCode;
+
+		public function __construct($scenario = 'insert', $areaCode = null){
+				
+				if($areaCode != null)
+					$this->areaCode = str_pad($areaCode, 3, "0", STR_PAD_LEFT);
+				
+				if($scenario != null)
+					$this->setScenario($scenario);
+
+				$this->setIsNewRecord(true);
+				
+				$this->afterConstruct();
+				parent::__construct ($scenario);
+		}
+
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
 	}
-
+	
+	protected function instantiate($attributes) {            
+		$class=get_class($this);
+		$model=new $class(null, $this->areaCode);
+		$model->_md=new CActiveRecordMetaData($model);
+		$model->attachBehaviors($model->behaviors());
+		$model->_attributes=$model->getMetaData()->attributeDefaults;
+		//try and comment the below line of code and see if it still works
+		$model->_attributes = $attributes;
+		return $model;
+	}
+	
 	public function tableName()
 	{
-		return 'comment';
+		if($this->getDbConnection()->getSchema()->getTable('comment_' . $this->areaCode) != null AND $this->areaCode != null)
+			return 'comment_' . $this->areaCode;
+		else 
+			return 'comment';
+	}
+
+	public function beforeSave() {
+
+		if ($this->getIsNewRecord()){
+			if($this->areaCode === null) {
+				$manageTable = new ManageTables();
+				$manageTable->insertCommentToChildTable($this);
+			}
+		}
+		return parent::beforeSave();
 	}
 
 	public function rules()

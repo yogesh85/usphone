@@ -20,7 +20,7 @@ class Constants {
     public static $COMMENTS_TRACE = 10;
     public static $tollFreeNumbers = array (800, 888, 877, 866, 855);
     
-    const HOME_SEARCHED_NUMBER_COUNT = 30;
+    const HOME_SEARCHED_NUMBER_COUNT = 28;
     
     const NOTES_SEED_URL = "http://800notes.com/";
     const NOTES_FILE_SAVE_PATH = "/runtime/800NotesFiles/";

@@ -2,34 +2,51 @@
 
 class ScrapperController extends Controller
 {
+	protected $scrapper;
+    
+    public function init() {
+        $this->scrapper = new Scrapper();
+        set_time_limit(0);
+        ini_set('memory_limit', -1);
+    }
+    
 	public function actionAreaCode()
 	{
-		$this->render('areaCode');
+		
 	}
 
 	public function actionComment()
 	{
-		$this->render('comment');
+		
 	}
 
 	public function actionCommentAll()
 	{
-		$this->render('commentAll');
+		try {
+            $this->scrapper->scrap800Notes();
+            $this->scrapper->scrapCallerCenter();
+            $this->scrapper->scrapWhoCalled();
+            $this->scrapper->scrapCallerComplaints();
+            $this->scrapper->scrapWhyCallMe();
+            $this->scrapper->scrapVerifyPhone();
+        } catch (Exception $e) {
+            $this->scrapper->alerts->alert(print_r($e, true));
+        }
 	}
 
 	public function actionInterchange()
 	{
-		$this->render('interchange');
+		
 	}
 
 	public function actionNewsFeed()
 	{
-		$this->render('newsFeed');
+		
 	}
 
 	public function actionWeatherInfo()
 	{
-		$this->render('weatherInfo');
+		
 	}
 
 	// Uncomment the following methods and override them if needed

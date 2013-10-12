@@ -1,5 +1,20 @@
 <?php $this->breadcrumbs=array('Tracing Page '=>Clicky::traceUrl($area_code, $area_interchange, $digit4),'Checkout Page');?>
 
+<script type="text/javascript">
+function  forward1() {
+	document.location = "http://localhost/p1";
+}
+function  forward2() {
+	document.location = "http://localhost/p2";
+}
+function  forward3() {
+	document.location = "http://localhost/p3";
+}
+function  forward4() {
+	document.location = "http://localhost/p4";
+}
+</script>
+
 <div class="BPcoreContainer" style="width:100%">
 	
 	<h1><?php echo $this->title; ?></h1>
@@ -36,11 +51,11 @@ Includes unlimited people searches, email searches, phone lookups and available 
 				
 				<div class="chk8">
 					<div class="chk9">Report + Free Trial* <div class="currenc">$7.95</div></div>
-					<div class="chk10"><span class="green">Free Trial</span></div>
+					<div class="chk10"><span class="green" onclick="forward1();">Free Trial</span></div>
 				</div>
 				<div class="chk11">
 					<div class="chk12">Report Only <div class="currenc">$9.95</div></div>
-					<div class="chk13"><span class="blue">Buy Now</span></div>
+					<div class="chk13"><span class="blue" onclick="forward2();">Buy Now</span></div>
 				</div>
 			</div>
 			
@@ -78,13 +93,15 @@ Includes unlimited people searches, email searches, phone lookups and available 
 			
 				<div class="chk8">
 					<div class="chk9">Report + Free Trial* <div class="currenc">$29.95</div></div>
-					<div class="chk10"><span class="green">Free Trial</span></div>					
+					<div class="chk10"><span class="green" onclick="forward3();">Free Trial</span></div>		
+					<div class="bstdl"></div>			
 				</div>
 				<div class="chk11">
 					<div class="chk12">Report Only <div class="currenc">$39.95</div></div>
-					<div class="chk13"><span class="blue">Buy Now</span></div>
+					<div class="chk13"><span class="blue" onclick="forward4();">Buy Now</span></div>
+					
 				</div>				
-				<div class="bstdl">Best Deal!!</div>
+				
 			</div>
 			<div class="descrip">
 				<p>

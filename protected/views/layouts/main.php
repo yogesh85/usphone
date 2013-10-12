@@ -20,8 +20,7 @@
 			<div class="tabheader ">
 				<ul class="nav spclear">
 					<li class="current ot_header_businesses"><a href="<?php echo Yii::app()->request->baseUrl; ?>"><span>Home</span></a></li>
-					<li class="ot_header_people"><a href="<?php echo Yii::app()->request->baseUrl; ?>"><span>States</span></a></li>
-					<li class="ot_header_people"><a href="<?php echo Yii::app()->request->baseUrl; ?>"><span>List Of Area Codes</span></a></li>
+					<li class="ot_header_people"><a href="<?php echo (new Clicky)->areaCodeDirectoryUrl() ?>"><span>List Of Area Codes</span></a></li>
 				</ul>
 			</div>
 			<div class="search-bar spclear;">
@@ -42,7 +41,7 @@
 						} else {
 							var t = numArr.join("");
 							var numbr = "";
-							if(t.length >= 3) numbr += "("+ t.substring(0, 3) +") "
+							if(t.length >= 3) numbr += "("+ t.substring(0, 3) +")"
 							if(t.length >= 6) numbr += t.substring(3, 6) + "-";
 							if(t.length >= 10) numbr += t.substring(6, 10);
 							document.getElementById("what_number").value = numbr;
@@ -51,7 +50,7 @@
 					}
 				</script>
 				<form action="" method="POST" id="phone_search_form" onsubmit="return verifyNumber();">
-					<input id="what_number" name="C" class="search-box sfield_OF" autocomplete="off" size="25" maxlength="13" type="text" placeholder="Search Phone Number">
+					<input id="what_number" value="<?php if(!empty($this->areaCode)) echo "(".$this->areaCode.")"; if(!empty($this->areaInterchange)) echo $this->areaInterchange."-"; ?>" name="C" class="search-box sfield_OF" autocomplete="off" size="25" maxlength="13" type="text" placeholder="Search Phone Number">
 					<div style="width:103px; height:72px; float:left;">
 						<input class="submit" name="submit" value="Search" type="submit">
 					</div>
@@ -90,8 +89,12 @@
 				</div>
 			</div>
 		</div>
-		<div class="footer">			
-			<div class="copy-wrapper">
+		<div class="footer">
+			<div class="ftrancd">
+				<a href="<?php echo Yii::app()->request->baseUrl; ?>"><span class="footer_anc">Home</span></a>
+				<a href="<?php echo (new Clicky)->areaCodeDirectoryUrl() ?>"><span class="footer_anc">List Of Area Codes</span></a>
+			</div>
+			<div class="copy-wrapper">				
 				<p class="data"><?php echo Yii::t("custom", "site.domain"); ?></p>
 				<p class="copyright">Copyright &copy; <?php echo date("Y")?> <a href="<?php echo Yii::t("custom", "site.domain"); ?>"><?php echo Yii::t("custom", "site.domain"); ?></a> All rights reserved. * Restrictions apply.</p>
 			</div>

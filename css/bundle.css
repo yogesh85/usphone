@@ -6177,3 +6177,14 @@ table.intr td{
     letter-spacing: 0.03em;
     margin: 3px 7px;
 }
+.ftrancd {
+	margin: 4px auto 1px;
+	text-align: center;
+}
+.footer_anc {
+	clear: both;
+	color: #2F5E8C;
+	font-size: 11px;
+	font-weight: normal;
+	margin: 5px 6px;
+}

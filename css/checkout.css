@@ -4,14 +4,16 @@
 	margin:7px 8px;
 }
 .bstdl {
-	background: url("../images/register-bestdeal.gif") no-repeat scroll 223px 0 transparent;
-	height: 41px;
-	overflow: visible;
-	position: relative;
-	right: -94px;
-	text-indent: -999px;
-	top: -72px;
-	width: 300px;
+	background: url("../images/register-bestdeal.gif") no-repeat scroll 0 0 transparent;
+    height: 39px;
+    margin-top: -7px;
+    overflow: hidden;
+    position: absolute;
+    right: -33px;
+    text-indent: -999px;
+    width: 68px;
+    z-index: 1;
+}
 }
 .chsp1 { 
 	background: url("../images/register-arrow.gif") no-repeat scroll 185px 0 transparent;

@@ -33,6 +33,27 @@
 	?>
 		<div>State : <b><?php echo $this->state." (".$this->stateCode.")"?></b></div>
 		<div>"<b><?php echo $stateInfo->capital?></b>" is capital of <b><?php echo $this->state?></b>.</div>
+		<div>Time Zone: 
+		<?php
+		$tz_arr = explode(",", $this->time_zone);
+		foreach($tz_arr as $key=>$val) {			
+			echo ($key == count($tz_arr) - 1) ? $val : $val." / ";
+		}
+		?>
+		</div>
+		
+		<div>The current time and date right now in <?php echo $this->state." (".$this->stateCode.")"?> is 
+		<?php
+		foreach($tz_arr as $key=>$val) {
+			date_default_timezone_set("UTC");
+			$tzparam = str_replace("UTC", "", $val);
+			$tzdate = "<span style='color:#FF9900;font-size:24px;font-weight:bold'>".date("g:i a", strtotime("$tzparam hours"))."</span> ".date("l j'S F Y", strtotime("$tzparam hours"));			
+			echo "<b>$tzdate</b>.";
+			break;
+		}
+		?>
+		</div>
+		
 		<div>
 			All County covered by area Code <b><?php echo $this->areaCode;?></b> are
 			<?php foreach($county_arr as $key=>$val) { 				

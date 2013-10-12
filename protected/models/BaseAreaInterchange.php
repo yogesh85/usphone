@@ -7,6 +7,7 @@
  * @property integer $id
  * @property string $area_code
  * @property string $area_interchange
+ * @property string $state
  * @property string $company_number
  * @property string $company
  * @property string $status
@@ -35,14 +36,14 @@ abstract class BaseAreaInterchange extends CActiveRecord{
 	public function rules()
 	{
 		return array(
-			array('area_code, area_interchange, company_number, company, status, usage, introduced, region, county, latitude, longitude, population', 'required'),
-			array('area_code, area_interchange', 'length', 'max'=>5),
+			array('area_code, area_interchange, state, company_number, company, status, usage, introduced, region, county, latitude, longitude, population', 'required'),
+			array('area_code, area_interchange, state', 'length', 'max'=>5),
 			array('company_number', 'length', 'max'=>9),
 			array('company', 'length', 'max'=>55),
 			array('status, usage, latitude, longitude', 'length', 'max'=>15),
 			array('region, county', 'length', 'max'=>35),
 			array('population', 'length', 'max'=>11),
-			array('id, area_code, area_interchange, company_number, company, status, usage, introduced, region, county, latitude, longitude, population', 'safe', 'on'=>'search'),
+			array('id, area_code, area_interchange, state, company_number, company, status, usage, introduced, region, county, latitude, longitude, population', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -59,6 +60,7 @@ abstract class BaseAreaInterchange extends CActiveRecord{
 			'id' => Yii::t('app', 'ID'),
 			'area_code' => Yii::t('app', 'Area Code'),
 			'area_interchange' => Yii::t('app', 'Area Interchange'),
+			'state' => Yii::t('app', 'State'),
 			'company_number' => Yii::t('app', 'Company Number'),
 			'company' => Yii::t('app', 'Company'),
 			'status' => Yii::t('app', 'Status'),
@@ -80,6 +82,7 @@ abstract class BaseAreaInterchange extends CActiveRecord{
 		$criteria->compare('id', $this->id);
 		$criteria->compare('area_code', $this->area_code);
 		$criteria->compare('area_interchange', $this->area_interchange, true);
+		$criteria->compare('state', $this->state, true);
 		$criteria->compare('company_number', $this->company_number, true);
 		$criteria->compare('company', $this->company, true);
 		$criteria->compare('status', $this->status, true);
