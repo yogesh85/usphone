@@ -59,7 +59,7 @@ class ManageTables extends CDbMigration {
         $userName = stripslashes($comment->user_name);
         $isSpam = $comment->is_spam;
         
-        $sql = "INSERT INTO " . $tableName . "(comment_text, phone_number, area_code, area_interchange_code, date, timestamp, user_name, is_spam )" 
+        $sql = "INSERT INTO " . $tableName . "(comment, phone_number, area_code, area_interchange_code, date, timestamp, user_name, is_spam )" 
                 . "VALUES('$commentText', '$phoneNumber', $areaCode, $areaInterchangeCode, NOW(), NOW(), '$userName', '$isSpam')";
         
         $connection = Yii::app() -> db;

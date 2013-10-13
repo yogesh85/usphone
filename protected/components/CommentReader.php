@@ -22,7 +22,10 @@ class CommentReader extends CComponent {
         if(is_null($areaCode) AND !is_null($areaInterchange)) $criteria->condition = "area_interchange_code = $areaInterchange";
         
         $criteria->select = "area_code, area_interchange_code, comment, phone_number, timestamp";
-        return Comment::model()->findAll($criteria);
+        if(!is_null($areaCode))        
+			return Comment::model(null, $areaCode)->findAll($criteria);
+		else
+			return Comment::model()->findAll($criteria);
         
     }
     

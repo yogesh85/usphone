@@ -11,7 +11,68 @@ class Scrapper extends CComponent{
             $this->proxy = new Proxy();
             $this->manageTables = new ManageTables();
         }
-        
+
+		public function scrapHelloMoonrock($date=null) {
+            if(is_null($date)) $date = date('Y-m-d', strtotime("-2 day", strtotime(date('Y-m-d'))));
+            echo $date ." => <br>";
+            /*
+            $content = $this->proxy->get_result(Constants::HELLOMOONROCK_AREA_CODE_URL."date/$date", false);
+            $content_array = json_decode($content);   
+            foreach($content_array as $val) {
+                $db = AreaCodes::model()->find("area_code = :area_code", array(':area_code' => $val->area_code));
+                if(count($db) == 0) {
+                    $db = new AreaCode();
+                    $db -> area_code = $val->area_code;
+                    $db -> state_code = $val->state_code;
+                   
+                    $db -> save();
+                }
+            }
+            unset($content);unset($content_array);   
+           
+            $content = $this->get_result(Constants::HELLOMOONROCK_AREA_INTERCHANGE_URL."date/$date", false);
+            $content_array = json_decode($content);   
+            foreach($content_array as $val) {
+                $db = AreaInterchanges::model()->find("area_code = :area_code AND area_interchange = :area_interchange", array(':area_code' => $val->area_code, ':area_interchange' => $val->area_interchange));
+                if(count($db) == 0) {
+                    $db = new AreaInterchange();
+                    $db -> area_code = $val->area_code;
+                    $db -> area_interchange = $val->area_interchange;
+                    $db -> longitude = $val->longitude;
+                    $db -> latitude = $val->latitude;
+                    $db -> carrier = $val->carrier;
+                    $db -> county = $val->county;
+                    $db -> population = $val->population;
+                    $db -> city = $val->city;
+                    $db -> wireless = $val->wireless;
+                    $db -> state = $val->state;
+                    $db -> processed = $val->processed;
+                    $db -> content_id = 1;
+                   
+                    $db -> save();
+                }
+            }*/
+            unset($content);unset($content_array);   
+           
+            $content = $this->get_result(Constants::HELLOMOONROCK_COMMENT_URL."date/$date", false);
+            file_put_contents("comment_json", $content, FILE_APPEND);
+            $content_array = json_decode($content);   
+            foreach($content_array as $val) {
+                $this->addCommentToArray($val->comment_text, $val->phone_number);
+            }
+            if(count($this->commentArray) > 0) $this->saveComments();
+            unset($content);unset($content_array);   
+           
+           
+            /*
+            foreach($comment_array as $val) {
+                $this->addCommentToArray($val->comment_text, $val->phone_number);
+            }
+            if(count($this->commentArray) > 0) $this->saveComments();
+            $this->commentArray = array();
+            */
+        }
+                
         public function scrapCallerComplaints(){
             $content = $this->get_result(Constants::CALLERCOMPLAINTS_SEED_URL);
             if(Constants::SAVE_FILES)
@@ -251,9 +312,9 @@ class Scrapper extends CComponent{
                 $number = preg_replace("/^(\d{3})(\d{3})(\d{4})$/", "$1-$2-$3", $commentItem['number']);                
                 $numberSplits = explode('-', $number);
                 
-                $exists = Comments::model()->findAll('phone_number=:phone_number AND comment_text=:comment_text', array('phone_number' => $number, 'comment_text' => $commentItem['comment']));
+                $exists = Comment::model()->findAll('phone_number=:phone_number AND comment=:comment_text', array('phone_number' => $number, 'comment_text' => $commentItem['comment']));
                 
-                if(!$this->validateAreaInterchange($numberSplits[0], $numberSplits[1], $number))	continue;
+                //if(!$this->validateAreaInterchange($numberSplits[0], $numberSplits[1], $number))	continue;
 				//if(!$this->validateAreaCode($numberSplits[0]))	continue;                
                 
                 if(!$exists) {
@@ -333,7 +394,7 @@ class Scrapper extends CComponent{
                     $areaInterchangeInstance->state = $peopleSmart->_state;
                     
                     if(!$areaInterchangeInstance->save()){
-                        Yii::log($areaInterchangeInstance->getErrors());
+                        //Yii::log($areaInterchangeInstance->getErrors());
                         var_dump($areaInterchangeInstance->getErrors());
                         return false;
                     }

@@ -46,9 +46,15 @@ class Constants {
     const VERIFYPHONE_SEED_URL = "http://www.verifyphone.com/";
     const VERIFYPHONE_FILE_SAVE_PATH = "/runtime/VerifyPhone/";
     const VERIFYPHONE_FILE_NAME_PREFIX = "VerifyPhone_";
+
+	const HELLOMOONROCK_AREA_CODE_URL = "http://www.hellomoonrock.com/scrapper/JsonAreaCode/";
+	const HELLOMOONROCK_AREA_INTERCHANGE_URL = "http://www.hellomoonrock.com/scrapper/JsonAreaInterchange/";
+	const HELLOMOONROCK_COMMENT_URL = "http://www.hellomoonrock.com/scrapper/JsonComments/";
     
     const PEOPLESMART_SITE_REFERENCE = "calllocato";
     const PEOPLESMART_SITE_AFF = "173";
+    
+    const USEPROXY = false;
 
 	static function getPeoplesmartLink () {
 		return "http://www.peoplesmart.com/psp.aspx?_act=loadingphone&search=phone&aff=".Constants:: PEOPLESMART_SITE_AFF. "&tid=".Constants::PEOPLESMART_SITE_REFERENCE."&utm_source=".Constants::PEOPLESMART_SITE_REFERENCE."&utm_medium=affiliate"."&id=".Constants::PEOPLESMART_SITE_REFERENCE."&siteName=".Constants::PEOPLESMART_SITE_REFERENCE."&phone=";

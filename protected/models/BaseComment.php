@@ -20,26 +20,40 @@ abstract class BaseComment extends CActiveRecord{
 	
 	
     protected $areaCode;
+    protected $_md;
 
-		public function __construct($scenario = 'insert', $areaCode = null){
-				
-				if($areaCode != null)
-					$this->areaCode = str_pad($areaCode, 3, "0", STR_PAD_LEFT);
-				
-				if($scenario != null)
-					$this->setScenario($scenario);
-
-				$this->setIsNewRecord(true);
-				
-				$this->afterConstruct();
-				parent::__construct ($scenario);
-		}
+	public function __construct($scenario = 'insert', $areaCode = null) {
+		if($areaCode != null) $this->areaCode = str_pad($areaCode, 3, "0", STR_PAD_LEFT);
+		if($scenario != null) $this->setScenario($scenario);
+		$this->setIsNewRecord(true);
+		$this->afterConstruct();
+		parent::__construct ($scenario);
+	}
 
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
 	}
 	
+	public function populateRecord($attributes,$callAfterFind=true) {
+		if($attributes!==false) {
+			$record=$this->instantiate($attributes);
+			$record->setScenario('update');
+			$record->init();
+			$md=$record->getMetaData();
+
+			foreach($attributes as $name=>$value) {
+				if(property_exists($record,$name)) $record->$name=$value;
+				else if(isset($md->columns[$name])) $record->setAttribute($name, $value);
+			}          
+			$record->_pk=$record->getPrimaryKey();
+			$record->attachBehaviors($record->behaviors());
+			if($callAfterFind)	$record->afterFind();
+			return $record;
+		}
+		else return null;
+	}
+
 	protected function instantiate($attributes) {            
 		$class=get_class($this);
 		$model=new $class(null, $this->areaCode);

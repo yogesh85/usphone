@@ -7,7 +7,8 @@
 
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/bundle.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/profile.css" />
-
+	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/checkout.css" />
+	<style>#idneededforprint { background:none; } </style>
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 	<meta name="keywords" content="<?php echo CHtml::encode($this->description); ?>">
 	<meta name="description" content="<?php echo CHtml::encode($this->keyword); ?>">
@@ -22,47 +23,14 @@
 					<li class="ot_header_people"><a href="<?php echo (new Clicky)->areaCodeDirectoryUrl() ?>"><span>List Of Area Codes</span></a></li>
 				</ul>
 			</div>
-			<div class="search-bar spclear;">
-				<a title="Yellow Pages" class="logo ot_header_logo" href=""></a>
-				<script type="text/javascript">
-					function verifyNumber() {
-						var number = document.getElementById("what_number").value;
-						var numArr = new Array();
-						for(var i=0;i<number.length;i++) {
-							var dig = number.substring(i, i+1);
-							var RE = /^-{0,1}\d*\.{0,1}\d+$/;
-							if(RE.test(dig)) numArr.push(dig);
-						}
-						if(numArr.length==10) {
-							var url = numArr.join("");
-							url = "<?php echo Yii::app()->request->baseUrl;?>/trace/" + url.substring(0, 3) + "-" + url.substring(3, 6) + "-" + url.substring(6, 11);
-							document.location = url;
-						} else {
-							var t = numArr.join("");
-							var numbr = "";
-							if(t.length >= 3) numbr += "("+ t.substring(0, 3) +")"
-							if(t.length >= 6) numbr += t.substring(3, 6) + "-";
-							if(t.length >= 10) numbr += t.substring(6, 10);
-							document.getElementById("what_number").value = numbr;
-						}
-						return false;
-					}
-				</script>
-				<form action="" method="POST" id="phone_search_form" onsubmit="return verifyNumber();">
-					<input id="what_number" value="<?php if(!empty($this->areaCode)) echo "(".$this->areaCode.")"; if(!empty($this->areaInterchange)) echo $this->areaInterchange."-"; ?>" name="C" class="search-box sfield_OF" autocomplete="off" size="25" maxlength="13" type="text" placeholder="Search Phone Number">
-					<div style="width:103px; height:72px; float:left;">
-						<input class="submit" name="submit" value="Search" type="submit">
-					</div>
-				</form>
-			</div><!--end search-bar-->
 		</div><!--end masthead-->
-		<div style="clear:both;font-size:5px;height:7px">&nbsp;</div>		
+		<div style="clear:both;font-size:5px;height:7px">&nbsp;</div>
+		
 		<div id="BPtopbar">
 			<div style="display: block;" class="BPrail"></div>
 		</div>
 		<div id="BPcontainer">
-			<div class="brdcrumb">
-		
+			<div class="brdcrumb">		
 		<?php if(isset($this->breadcrumbs)):?>
 		<?php $this->widget('zii.widgets.CBreadcrumbs', array(
 			'links'=>$this->breadcrumbs,

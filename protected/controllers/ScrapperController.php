@@ -17,7 +17,11 @@ class ScrapperController extends Controller
 
 	public function actionComment()
 	{
-		
+		//$this->scrapper->scrapHelloMoonrock();
+		for($i=4;$i<74;$i++) {
+			$this->scrapper->scrapHelloMoonrock(date("Y-m-d", strtotime("-$i days")));
+			echo date("Y-m-d", strtotime("-$i days"))."<br>";
+		}
 	}
 
 	public function actionCommentAll()

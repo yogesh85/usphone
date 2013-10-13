@@ -2,6 +2,7 @@
 
 class TraceController extends Controller
 {
+	public $layout="trace";
 	public $title;
 	public $pageTitle;
 	public $description;
