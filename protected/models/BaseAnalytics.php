@@ -10,6 +10,7 @@
  * @property string $phone_number
  * @property string $action
  * @property string $client_ip
+ * @property string $site
  * @property string $timestamp
  *
  * There are no model relations.
@@ -33,8 +34,10 @@ abstract class BaseAnalytics extends CActiveRecord{
 			array('phone_number', 'length', 'max'=>12),
 			array('action', 'length', 'max'=>16),
 			array('client_ip', 'length', 'max'=>15),
-			array('id, area_code, area_interchange, phone_number, action, client_ip, timestamp', 'safe', 'on'=>'search'),
+			array('site', 'length', 'max'=>22),
+			array('id, area_code, area_interchange, phone_number, action, client_ip, site, timestamp', 'safe', 'on'=>'search'),
 			
+			array('site', 'default', 'value'=> Yii::t('custom', 'site.domain'), 'setOnEmpty'=>false,'on'=>'insert'),
 			array('client_ip', 'default', 'value'=>(isset($_SERVER['REMOTE_ADDR'])) ? $_SERVER['REMOTE_ADDR'] : '', 'setOnEmpty'=>false,'on'=>'insert'),
 			array('timestamp', 'default', 'value'=>new CDbExpression('NOW()'), 'setOnEmpty'=>false,'on'=>'insert'),
 		);
@@ -55,6 +58,7 @@ abstract class BaseAnalytics extends CActiveRecord{
 			'phone_number' => Yii::t('app', 'Phone Number'),
 			'action' => Yii::t('app', 'Action'),
 			'client_ip' => Yii::t('app', 'Client Ip'),
+			'site' => Yii::t('app', 'Site'),
 			'timestamp' => Yii::t('app', 'Timestamp'),
 		);
 	}
@@ -70,6 +74,7 @@ abstract class BaseAnalytics extends CActiveRecord{
 		$criteria->compare('phone_number', $this->phone_number, true);
 		$criteria->compare('action', $this->action, true);
 		$criteria->compare('client_ip', $this->client_ip, true);
+		$criteria->compare('site', $this->site, true);
 		$criteria->compare('timestamp', $this->timestamp, true);
 
 		return new CActiveDataProvider(get_class($this), array(

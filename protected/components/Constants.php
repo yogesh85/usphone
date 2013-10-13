@@ -21,6 +21,7 @@ class Constants {
     public static $tollFreeNumbers = array (800, 888, 877, 866, 855);
     
     const HOME_SEARCHED_NUMBER_COUNT = 28;
+	const MOSTLY_SEARCHED_NUMBER = 28;
     
     const NOTES_SEED_URL = "http://800notes.com/";
     const NOTES_FILE_SAVE_PATH = "/runtime/800NotesFiles/";
@@ -51,8 +52,8 @@ class Constants {
 	const HELLOMOONROCK_AREA_INTERCHANGE_URL = "http://www.hellomoonrock.com/scrapper/JsonAreaInterchange/";
 	const HELLOMOONROCK_COMMENT_URL = "http://www.hellomoonrock.com/scrapper/JsonComments/";
     
-    const PEOPLESMART_SITE_REFERENCE = "calllocato";
-    const PEOPLESMART_SITE_AFF = "173";
+    const PEOPLESMART_SITE_REFERENCE = "phoneinfo";
+    const PEOPLESMART_SITE_AFF = "273";
     
     const USEPROXY = false;
 

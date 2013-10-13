@@ -23,6 +23,7 @@ return  array (
     "homepage.header3" => "Number Searched for Today",
     "homepage.header4" => "Area Code List {digit}00 - {digit}99",
     "homepage.header5" => "Most Recently Searched Number for City",
+    "homepage.header6" => "Mostly Searched Numbers",
     
     "areaCode.titletag" => "Reverse Phone Number Lookup | Area Code - {area_code}",
     "areaCode.descriptiontag" => "",
@@ -44,6 +45,7 @@ return  array (
     "areaInterchange.header3" => "Interchange details digit7 url",
     "areaInterchange.header4" => "Interchange details comments",
     "areaInterchange.header5" => "({area_code}) -{area_interchange}-XXXX {state} ({state_code}) Phone Number Results",
+    "areaInterchange.header6" => "Mostly Searched Numbers for ({area_code}) -{area_interchange}-XXXX {state} ({state_code})",
     
     "detail.titletag" => "({area_code}){area_interchange}-{digit4} Phone Results",
     "detail.descriptiontag" => "({area_code}){area_interchange}-{digit4} Phone Results",

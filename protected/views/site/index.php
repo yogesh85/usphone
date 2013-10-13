@@ -28,6 +28,15 @@
 	<?php } ?>
 	</div>
 	
+	<div class="th1"><?php echo Yii::t("custom", "homepage.header6")?></div>
+	<div class="tb1">
+	<?php if(count($this->mostly_searched_number) == 0) echo "No One searched any number today! Be the First One to search number. Thanks!!!" ?>
+	<?php foreach($this->mostly_searched_number as $number) { ?>
+		<?php $temp = explode("-", $number); ?>
+		<div class="trc1"><a class="b" href="<?php echo (new Clicky)->areaInterchangeUrl($temp[0], $temp[1])?>">(<?php echo $temp[0]?>) <?php echo $temp[1]."-".$temp[2]?></a></div>
+	<?php } ?>
+	</div>
+	
 	
 	<?php
 	$areaCodeArray = array();

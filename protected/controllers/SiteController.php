@@ -9,6 +9,7 @@ class SiteController extends Controller
 	public $areaCodeList;
 	public $recently_searched_number;
 	public $today_searched_number;
+	public $mostly_searched_number;
 	
 	public $areaCode;
 	public $areaInterchange;
@@ -65,9 +66,9 @@ class SiteController extends Controller
 			$criteria -> order = "timestamp DESC";
 			$criteria -> limit = Constants::HOME_SEARCHED_NUMBER_COUNT - count($phone);
 			if(count($phone) > 0) {
-				$criteria -> condition = "phone_number NOT IN ('".implode("', '", $phone)."') AND action = 'detail'";
+				$criteria -> condition = "phone_number NOT IN ('".implode("', '", $phone)."') AND action = 'detail' AND site = '".Yii::t('custom', 'site.domain')."'";
 			} else {
-				$criteria -> condition = "action = 'detail'";
+				$criteria -> condition = "action = 'detail' AND site = '".Yii::t('custom', 'site.domain')."'";
 			}
 			$analytics = Analytics::model()->findAll($criteria);
 			unset($criteria);
@@ -89,7 +90,7 @@ class SiteController extends Controller
 		$criteria -> group = "phone_number";
 		$criteria -> order = "timestamp DESC";
 		$criteria -> limit = "20";
-		$criteria -> condition = "action = 'detail' AND timestamp > ".date("\'Y-m-d\'");
+		$criteria -> condition = "site = '".Yii::t('custom', 'site.domain')."' AND action = 'detail' AND timestamp > ".date("\'Y-m-d\'");
 		$analytics = Analytics::model()->findAll($criteria);
 		unset($criteria);
 		foreach($analytics as $val) {
@@ -97,6 +98,13 @@ class SiteController extends Controller
 		}
 		$this->today_searched_number = $phone;
 		unset($phone);
+		
+		
+		$analytics = Yii::app()->db->createCommand()->select("phone_number, count(*) as total")->from("analytics a")
+			->where("site = '".Yii::t("custom", "site.domain")."' AND length(phone_number) >= 10")
+			->group("phone_number")->order('total DESC')->limit(Constants::MOSTLY_SEARCHED_NUMBER)->queryAll();
+		$this->mostly_searched_number = array();
+		foreach($analytics as $val) array_push($this->mostly_searched_number, $val['phone_number']);
 		
 		$this->render('//site/index');
 	}
@@ -288,9 +296,9 @@ class SiteController extends Controller
 			$criteria -> order = "timestamp DESC";
 			$criteria -> limit = Constants::HOME_SEARCHED_NUMBER_COUNT - count($phone);
 			if(count($phone) > 0) {
-				$criteria -> condition = "phone_number NOT IN ('".implode("', '", $phone)."') AND action = 'detail'";
+				$criteria -> condition = "site = '".Yii::t('custom', 'site.domain')."' AND phone_number NOT IN ('".implode("', '", $phone)."') AND action = 'detail'";
 			} else {
-				$criteria -> condition = "action = 'detail'";
+				$criteria -> condition = "site = '".Yii::t('custom', 'site.domain')."' AND action = 'detail'";
 			}
 			$analytics = Analytics::model()->findAll($criteria);
 			unset($criteria);
@@ -305,6 +313,12 @@ class SiteController extends Controller
 		$this->recently_searched_number = $phone;
 		unset($phone);
 		
+		$analytics = Yii::app()->db->createCommand()->select("phone_number, count(*) as total")->from("analytics a")
+			->where("area_code = '{$this->areaCode}' AND area_interchange = '{$this->areaInterchange}' AND site = '".Yii::t("custom", "site.domain")."' AND length(phone_number) >= 10")
+			->group("phone_number")->order('total DESC')->limit(Constants::MOSTLY_SEARCHED_NUMBER)->queryAll();
+		$arr = array();
+		$this->mostly_searched_number = array();
+		foreach($analytics as $val) array_push($this->mostly_searched_number, $val['phone_number']);
 		
 		$this->render('//site/areaInterchange', array(
 			'zip_codes' => $zip_code_arr, 

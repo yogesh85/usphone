@@ -121,6 +121,17 @@ google.maps.event.addDomListener(window, 'load', initialize);
 		<div class="trc1"><a class="b" href="<?php echo (new Clicky)->areaInterchangeUrl($temp[0], $temp[1])?>">(<?php echo $temp[0]?>) <?php echo $temp[1]."-".$temp[2]?></a></div>
 	<?php } ?>
 	</div>
+	
+	<div class="th1"><?php echo Yii::t("custom", "areaInterchange.header6", $params)?></div>
+	<div class="tb1">
+	<?php if(count($this->mostly_searched_number) == 0) echo "No searched record is Available for {$this->areaCode}-{$this->areaInterchange}-XXXX" ?>
+	<?php foreach($this->mostly_searched_number as $number) { ?>
+		<?php
+		$temp = explode("-", $number); 
+		?>
+		<div class="trc1"><a class="b" href="<?php echo (new Clicky)->areaInterchangeUrl($temp[0], $temp[1])?>">(<?php echo $temp[0]?>) <?php echo $temp[1]."-".$temp[2]?></a></div>
+	<?php } ?>
+	</div>
 	<div id="BPcore_nonad">
 		<div id="listingdiv0" class="bpListingInfo">
 			<div id="coreBizName_nonad">
