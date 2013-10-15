@@ -1,44 +1,44 @@
+
+
 <div class="BPcoreContainer" style="width:100%">
 	<?php $this->breadcrumbs=array('Area Code ('.$this->areaCode.')'=>(new Clicky)->areaCodeUrl($this->areaCode), $params['{city}']." ({$this->areaCode})-{$this->areaInterchange}"); ?>
 	<h1><?php echo Yii::t("custom", "areaInterchange.title", $params)?></i></h1>
 	<div class="th1"><?php echo Yii::t("custom", "areaInterchange.header1", $params)?></div>
 	<div class="tb1">
-		
-City : <?php echo $params['{city}']?><br>
-State : <?php echo $params['{state}']?>  (<?php echo $params['{state_code}']?>)<br>
-county : <?php echo $params['{county}']?><br>
-<div>Time Zone: 
-		<?php
-		$tz_arr = explode(",", $this->time_zone);
-		foreach($tz_arr as $key=>$val) {			
-			echo ($key == count($tz_arr) - 1) ? $val : $val." / ";
-		}
-		?>
-		</div>
-		
-		<div>The current time and date right now in <?php echo $params['{city}'].", ".$this->stateCode?> is 
-		<?php
-		foreach($tz_arr as $key=>$val) {
-			date_default_timezone_set("UTC");
-			$tzparam = str_replace("UTC", "", $val);
-			$tzdate = "<span style='color:#FF9900;font-size:24px;font-weight:bold'>".date("g:i a", strtotime("$tzparam hours"))."</span> ".date("l j'S F Y", strtotime("$tzparam hours"));			
-			echo "<b>$tzdate</b>.";
-			break;
-		}
-		?>
-</div>		
-Zip Codes : <?php echo implode(", ", $zip_codes); ?><br>
-Network Service Provider Company : <?php echo $this->interchangeObj->company; ?><br>
-Network Service Provider Company ID : <?php echo $this->interchangeObj->company_number; ?><br>
-Other cities are <b><?php echo implode("</b>, <b>", $other_cities); ?></b><br>
-Latitude : <?php echo $params['{lat}']?><br>
-Longitude : <?php echo $params['{long}']?>
-<b>Population Data</b><br>
+	<table class="intrdtl">
+		<tr><td>City</td><td><?php echo $params['{city}']?></td></tr>
+		<tr><td>State</td><td><?php echo $params['{state}']."(".$params['{state_code}'].")"?></td></tr>
+		<tr><td>County</td><td><?php echo $params['{county}']?></td></tr>
+		<tr>
+			<td>Time Zone</td>
+			<td><?php $tz_arr=explode(",", $this->time_zone); foreach($tz_arr as $key=>$val) echo ($key == count($tz_arr) - 1) ? $val : $val." / ";?></td>
+		</tr>
+		<tr>
+			<td>Current Time in <?php echo $params['{city}'].", ".$this->stateCode?></td>
+			<td>
+				<?php
+				foreach($tz_arr as $key=>$val) {
+					date_default_timezone_set("UTC");
+					$tzparam = str_replace("UTC", "", $val);
+					$tzdate = "<span style='color:#FF9900;font-size:28px;font-weight:bold'>".date("g:i a", strtotime("$tzparam hours"))."</span> ".date("l j'S F Y", strtotime("$tzparam hours"));			
+					echo "$tzdate.";
+					break;
+				}
+				?>				
+			</td>
+		</tr>
+		<tr><td>Zip Codes</td><td><?php echo implode(", ", $zip_codes); ?></td></tr>
+		<tr><td>Network Service Provider Company</td><td><?php echo $this->interchangeObj->company; ?></td></tr>
+		<tr><td>Network Service Provider Company ID</td><td><?php echo $this->interchangeObj->company_number; ?></td></tr>
+		<tr><td>Geo Coordinates</td><td>Latitude: <?php echo $params['{lat}'];?> Longitude: <?php echo $params['{long}'];?></td></tr>
+		<tr><td>Other Cities</td><td><?php echo implode(", ", $other_cities); ?></td></tr>
+	</table>
+<div style="margin:7px 3px;">
 <?php if(count($placePopulation)>0) {?>
 Population of <b><?php echo $params['{city}']?></b> is 
 <?php $count=0; foreach($placePopulation as $key=>$val) { echo (($count++) == count($placePopulation) - 1) ? "$val in $key." : "$val in $key, "; } ?>
 <?php } ?>
-
+</div>
 	</div>
 	
 	
@@ -79,6 +79,14 @@ google.maps.event.addDomListener(window, 'load', initialize);
 	<?php } ?>
 	
 	
+	<div class="th1"><?php echo Yii::t("custom", "homepage.header2")?></div>
+	<div class="tb1">
+	<?php foreach($this->recently_searched_number as $number) { ?>
+		<?php $temp = explode("-", $number); ?>
+		<div class="trc1"><a class="b" href="<?php echo (new Clicky)->areaInterchangeUrl($temp[0], $temp[1])?>">(<?php echo $temp[0]?>) <?php echo $temp[1]."-".$temp[2]?></a></div>
+	<?php } ?>
+	</div>
+	
 	
 	<div class="th1"><?php echo Yii::t("custom", "areaInterchange.header4", $params)?></div>
 	<div class="tb1">
@@ -110,16 +118,6 @@ google.maps.event.addDomListener(window, 'load', initialize);
 			echo "<span class='nmbr'>({$this->areaCode})-{$this->areaInterchange}-$number</span>";
 		}
 		?>
-	</div>
-	
-	<div class="th1"><?php echo Yii::t("custom", "homepage.header2")?></div>
-	<div class="tb1">
-	<?php foreach($this->recently_searched_number as $number) { ?>
-		<?php
-		$temp = explode("-", $number); 
-		?>
-		<div class="trc1"><a class="b" href="<?php echo (new Clicky)->areaInterchangeUrl($temp[0], $temp[1])?>">(<?php echo $temp[0]?>) <?php echo $temp[1]."-".$temp[2]?></a></div>
-	<?php } ?>
 	</div>
 	
 	<div class="th1"><?php echo Yii::t("custom", "areaInterchange.header6", $params)?></div>

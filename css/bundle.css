@@ -6188,3 +6188,18 @@ table.intr td{
 	font-weight: normal;
 	margin: 5px 6px;
 }
+table.intrdtl {
+	width:95%;
+}
+table.intrdtl tr {}
+table.intrdtl tr:nth-child(even) { background-color:#EDEBF5;}
+table.intrdtl tr td:first-Child + td {  
+	text-align:justify;
+	width:80%;
+}
+table.intrdtl tr td:first-Child {  	
+	text-decoration:underline;
+	vertical-align:top;
+	padding:2px;
+	width:20%;
+}

@@ -31,73 +31,51 @@
 			); 
 		}
 	?>
-		<div>State : <b><?php echo $this->state." (".$this->stateCode.")"?></b></div>
-		<div>"<b><?php echo $stateInfo->capital?></b>" is capital of <b><?php echo $this->state?></b>.</div>
-		<div>Time Zone: 
-		<?php
-		$tz_arr = explode(",", $this->time_zone);
-		foreach($tz_arr as $key=>$val) {			
-			echo ($key == count($tz_arr) - 1) ? $val : $val." / ";
-		}
-		?>
-		</div>
-		
-		<div>The current time and date right now in <?php echo $this->state." (".$this->stateCode.")"?> is 
-		<?php
-		foreach($tz_arr as $key=>$val) {
-			date_default_timezone_set("UTC");
-			$tzparam = str_replace("UTC", "", $val);
-			$tzdate = "<span style='color:#FF9900;font-size:24px;font-weight:bold'>".date("g:i a", strtotime("$tzparam hours"))."</span> ".date("l j'S F Y", strtotime("$tzparam hours"));			
-			echo "<b>$tzdate</b>.";
-			break;
-		}
-		?>
-		</div>
-		
-		<div>
-			All County covered by area Code <b><?php echo $this->areaCode;?></b> are
-			<?php foreach($county_arr as $key=>$val) { 				
-				if($key == count($county_arr) - 1) {
-					echo "<b>".$val['name']."</b>.";
-				} else {
-					echo "<b>".$val['name']."</b>, ";
-				} 
-			} ?>
-		</div>
+	<table class="intrdtl">
+		<tr><td>State</td><td><?php echo $this->state." (".$this->stateCode.")"?></td></tr>
+		<tr><td>Capital of <?php echo $this->state?></td><td><?php echo $stateInfo->capital?></td></tr>
+		<tr><td>Time Zone</td><td><?php $tz_arr = explode(",", $this->time_zone); foreach($tz_arr as $key=>$val) echo ($key == count($tz_arr) - 1) ? $val : $val." / ";?></td></tr>
+		<tr>
+			<td>Current Time in <?php echo $this->state?></td>
+			<td>
+				<?php
+				foreach($tz_arr as $key=>$val) {
+					date_default_timezone_set("UTC");
+					$tzparam = str_replace("UTC", "", $val);
+					$tzdate = "<span style='color:#FF9900;font-size:28px;font-weight:bold'>".date("g:i a", strtotime("$tzparam hours"))."</span> ".date("l j'S F Y", strtotime("$tzparam hours"));			
+					echo "$tzdate.";
+					break;
+				}
+				?>				
+			</td>
+		</tr>
+		<tr>
+			<td>Geo Coordinates</td>
+			<td>Latitude: <?php echo $this->lat;?> Longitude: <?php echo $this->long;?></td>
+		</tr>
+		<tr>
+			<td>County List in Area Code<?php echo $this->areaCode;?></td>
+			<td>
+				<?php foreach($county_arr as $key=>$val) if($key == count($county_arr) - 1) echo $val['name']."."; else echo $val['name'].", ";?>
+			</td>
+		</tr>
 		<?php if(count($place_arr)) { ?>
-		<div>
-			All Cities covered by area Code <b><?php echo $this->areaCode;?></b> are
-			<?php foreach($place_arr as $key=>$val) { 				
-				if($key == count($place_arr) - 1) {
-					echo "<b>".$val['name']."</b>.";
-				} else {
-					echo "<b>".$val['name']."</b>, ";
-				} 
-			} ?>
-		</div>
+		<tr>
+			<td>Cities in Area Code <?php echo $this->areaCode;?></td>
+			<td><?php foreach($place_arr as $key=>$val) if($key == count($place_arr) - 1) echo $val['name']."."; else echo $val['name'].", "; ?></td>
+		</tr>
 		<?php } ?>
-		<div>
-			<?php
-			$pop = unserialize($stateInfo->population);
-			ksort($pop);
-			?>
-			State <b><?php echo $this->state?></b> have population of <b><?php echo $pop[max(array_keys($pop))];?></b>. 		
-			<b><?php echo $this->state?></b> is covered by 
-			<b><?php echo $stateInfo->area_total?> km<sup>2</sup></b> area where water area covers 
-			<b><?php echo $stateInfo->area_water;?> km<sup>2</sup></b> and land area is 
-			<b><?php echo $stateInfo->area_land;?> km<sup>2</b></sup>.
-		</div>
-		<div>
-			List Of area Codes in <b><?php echo $this->state." (".$this->stateCode.")"?></b> are 
-			<?php
-			foreach($other_area_codes as $key=>$val) {
-				if($key < count($other_area_codes) - 1)
-					echo "<a href='".(new Clicky)->areaCodeUrl($val)."'>$val</a>, ";
-				else
-					echo "<a href='".(new Clicky)->areaCodeUrl($val)."'>$val</a>";
-			}
-			?>
-		</div>
+		<?php $pop = unserialize($stateInfo->population); ksort($pop); ?>
+		<tr><td>Population of <?php echo $this->state?></td><td><?php echo $pop[max(array_keys($pop))];?></td></tr>
+		<tr><td>Area of <?php echo $this->state?></td><td><?php echo $stateInfo->area_total?> km<sup>2</sup></td></tr>
+		<tr><td>Land Area of <?php echo $this->state?></td><td><?php echo $stateInfo->area_land;?> km<sup>2</sup></td></tr>
+		<tr><td>Wate Area of <?php echo $this->state?></td><td><?php echo $stateInfo->area_water;?> km<sup>2</sup></td></tr>
+		<tr>
+			<td>Other Area Codes in <?php echo $this->state?></td>
+			<td><?php foreach($other_area_codes as $key=>$val) if($key < count($other_area_codes) - 1) echo "<a href='".(new Clicky)->areaCodeUrl($val)."'>$val</a>, "; else echo "<a href='".(new Clicky)->areaCodeUrl($val)."'>$val</a>"; ?></td>
+		</tr>
+	</table>
+		
 	</div>
 	
 	<?php if(!empty($this->lat) AND !empty($this->long)) { ?>

@@ -55,7 +55,7 @@ class Scrapper extends CComponent{
             unset($content);unset($content_array);   
            
             $content = $this->get_result(Constants::HELLOMOONROCK_COMMENT_URL."date/$date", false);
-            file_put_contents("comment_json", $content, FILE_APPEND);
+            file_put_contents("comment_json", $content."\n", FILE_APPEND);
             $content_array = json_decode($content);   
             foreach($content_array as $val) {
                 $this->addCommentToArray($val->comment_text, $val->phone_number);

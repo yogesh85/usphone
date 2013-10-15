@@ -8,7 +8,6 @@ class SiteController extends Controller
 	public $comments;
 	public $areaCodeList;
 	public $recently_searched_number;
-	public $today_searched_number;
 	public $mostly_searched_number;
 	
 	public $areaCode;
@@ -84,22 +83,7 @@ class SiteController extends Controller
 		$this->recently_searched_number = $phone;
 		unset($phone);
 		
-		$phone = array();
-		$criteria = new CDbCriteria();
-		$criteria -> select = "phone_number";
-		$criteria -> group = "phone_number";
-		$criteria -> order = "timestamp DESC";
-		$criteria -> limit = "20";
-		$criteria -> condition = "site = '".Yii::t('custom', 'site.domain')."' AND action = 'detail' AND timestamp > ".date("\'Y-m-d\'");
-		$analytics = Analytics::model()->findAll($criteria);
-		unset($criteria);
-		foreach($analytics as $val) {
-			if(!in_array($val['phone_number'], $phone)) $phone[] = $val['phone_number'];
-		}
-		$this->today_searched_number = $phone;
-		unset($phone);
-		
-		
+			
 		$analytics = Yii::app()->db->createCommand()->select("phone_number, count(*) as total")->from("analytics a")
 			->where("site = '".Yii::t("custom", "site.domain")."' AND length(phone_number) >= 10")
 			->group("phone_number")->order('total DESC')->limit(Constants::MOSTLY_SEARCHED_NUMBER)->queryAll();
@@ -235,13 +219,13 @@ class SiteController extends Controller
 			}
 		}
 		if(!empty($interchange_model->latitude) AND $interchange_model->latitude > 0) {
-			$this->lat = $interchange_model->latitude;
-			$this->lat = $interchange_model->longitude;
+			$this->lat = $interchange_model->latitude; 
+			$this->long = $interchange_model->longitude;
 		} else {
 			$this->lat = @$map[0]['lat'];
-			$this->long = @$map[0]['long'];
+			$this->long = @$map[0]['long']; 
 		}
-				
+		
 		$criteria = new CDbCriteria();
 		$criteria->select = "*, (((acos(sin(({$this->lat}*pi()/180)) * sin((`lat`*pi()/180))+cos(({$this->lat}*pi()/180)) * cos((`lat`*pi()/180)) * cos((({$this->long}- `long`)* pi()/180))))*180/pi())*60*1.1515	) as distance";
 		if(!empty($interchange_model->county)) $criteria->condition = "state = '{$this->stateCode}' AND county IN(\"".implode('", "', explode("/", str_replace(array(" / ", " /", "/ "), "/", $interchange_model->county)))."\")";

@@ -38,7 +38,7 @@
 		<?php endif?>
 		</div>
 			<table border="0" cellpadding="0" cellspacing="0" width="950">
-				<tbody><tr>
+				<tr>
 					<td id="leftsd" valign="top">
 						<?php //$this->renderPartial("//include/social_header");?>
 					</td>
@@ -48,7 +48,7 @@
 						</div>
 					</td>
 				</tr>
-			</tbody></table>
+			</table>
 
 			<div id="bannerbottom" style="height:12px;">
 				<div class="toprint" style="padding-top:20px;" align="center">
