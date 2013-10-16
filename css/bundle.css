@@ -2354,7 +2354,7 @@ ul.nav .current a span {
 }
 .footer {
 	width:950px;
-	margin:15px auto;
+	margin:15px auto 8px auto;
 	padding:0;
 	border-top:1px solid #e8e8e8;
 }
@@ -2474,7 +2474,8 @@ ul.nav .current a span {
 	font-size:10px;
 	color:#858585;
 	line-height:15px;
-	padding:2px 15px 0 0;
+	padding:2px 15px 0 0;    
+	text-align: center;
 }
 .footer p.data {
 	display:block;
@@ -2503,7 +2504,7 @@ ul.nav .current a span {
 }
 .copy-wrapper {
 	float:left;
-	width:700px;
+	width:100%;
 }
 .feedback {
 	display:block;
@@ -6202,4 +6203,10 @@ table.intrdtl tr td:first-Child {
 	vertical-align:top;
 	padding:2px;
 	width:20%;
+}
+.privacy {
+	font-size:14px;
+}
+.privacy p {
+	margin:9px 21px 9px 2px;
 }

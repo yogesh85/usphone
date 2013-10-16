@@ -54,6 +54,7 @@ return array(
 				'checkout/<areaCode:\d\d\d>-<areaInterchange:\d\d\d>-<digit4:\d\d\d\d>'=>'trace/checkout',
 				'comment/add/<areaCode:\d\d\d>-<areaInterchange:\d\d\d>-<digit4:\d\d\d\d>'=>'trace/addComment',
 				'area-code-list'=>'site/areaCodeDirectory',
+				'privacy-policy'=>'site/privacy',
 			),
 		),
 		/*

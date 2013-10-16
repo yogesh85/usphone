@@ -1,7 +1,7 @@
 
 
 <div class="BPcoreContainer" style="width:100%">
-	<?php $this->breadcrumbs=array('Area Code ('.$this->areaCode.')'=>(new Clicky)->areaCodeUrl($this->areaCode), $params['{city}']." ({$this->areaCode})-{$this->areaInterchange}"); ?>
+	<?php $this->breadcrumbs=array('Area Code ('.$this->areaCode.')'=>(new Clicky)->areaCodeUrl($this->areaCode), ucfirst($params['{city}'])." ({$this->areaCode})-{$this->areaInterchange}"); ?>
 	<h1><?php echo Yii::t("custom", "areaInterchange.title", $params)?></i></h1>
 	<div class="th1"><?php echo Yii::t("custom", "areaInterchange.header1", $params)?></div>
 	<div class="tb1">

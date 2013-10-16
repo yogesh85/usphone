@@ -1,4 +1,4 @@
-<?php $this->breadcrumbs=array('Tracing Page '=>Clicky::traceUrl($area_code, $area_interchange, $digit4),'Checkout Page');?>
+<?php //$this->breadcrumbs=array('Tracing Page '=>Clicky::traceUrl($area_code, $area_interchange, $digit4),'Checkout Page');?>
 
 <script type="text/javascript">
 function  forward1() {
@@ -18,7 +18,7 @@ function  forward4() {
 <div class="BPcoreContainer" style="width:100%">
 	
 	<h1><?php echo $this->title; ?></h1>
-	<div class="chk1">
+	<div class="chk1" style="margin-top:11px;">
 		<div class="chk2">
 			<span class="chsp1">Select one Option to Download full results</span>
 			<span class="chsp2">Phone Number</span>
@@ -44,13 +44,13 @@ function  forward4() {
 					</div>
 				</div>
 				<div class="chk7">
-					<div id="off25">25% OFF</div>
-					<strong><span class="specialoffer">Special Offer</span> with 7-Day FREE Trial<br>of 1-Year Unlimited Search Access</strong><br>
-Includes unlimited people searches, email searches, phone lookups and available public records. Membership is free for 7 days then automatically billed for $23.40 per year. 
+					<div id="off88">88% OFF</div>
+					<strong><span class="specialoffer">Special Offer</span> with 7-Day FREE Trial<br>of Unlimited Search Access</strong><br>
+Includes unlimited people searches, email searches, phone lookups and available public records. Membership is free for 7 days then automatically billed for $19.95 per month. 
 				</div>
 				
 				<div class="chk8">
-					<div class="chk9">Report + Free Trial* <div class="currenc">$7.95</div></div>
+					<div class="chk9">Report + Free Trial* <div class="currenc">$0.95</div></div>
 					<div class="chk10"><span class="green" onclick="forward1();">Free Trial</span></div>
 				</div>
 				<div class="chk11">
@@ -85,10 +85,10 @@ Includes unlimited people searches, email searches, phone lookups and available 
 					</div>
 				</div>
 				<div class="chk7">
-					<div id="off30">30% OFF</div>
+					<div id="off50">50% OFF</div>
 					<strong>
-							<span class="specialoffer">Special Offer</span> with 7-Day FREE Trial<br>of 1-Year Unlimited Search Access</strong><br>
-Includes unlimited people searches, email searches, phone lookups and available public records. Membership is free for 7 days then automatically billed for $23.40 per year. 
+							<span class="specialoffer">Special Offer</span> with 7-Day FREE Trial<br>of Unlimited Search Access</strong><br>
+Includes unlimited people searches, email searches, phone lookups and available public records. Membership is free for 7 days then automatically billed for $19.95 per month. 
 				</div>
 			
 				<div class="chk8">

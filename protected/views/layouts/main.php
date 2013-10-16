@@ -17,13 +17,10 @@
 	<div class="master" id="page0">
 		<div id="city_image" class="masthead noprint">		
 			<div class="tabheader ">
-				<ul class="nav spclear">
-					<li class="current ot_header_businesses"><a href="<?php echo Yii::app()->request->baseUrl; ?>"><span>Home</span></a></li>
-					<li class="ot_header_people"><a href="<?php echo (new Clicky)->areaCodeDirectoryUrl() ?>"><span>List Of Area Codes</span></a></li>
-				</ul>
+				<?php $this->renderPartial("//include/header");?>
 			</div>
 			<div class="search-bar spclear;">
-				<a title="Yellow Pages" class="logo ot_header_logo" href=""></a>
+				<a title="Yellow Pages" class="logo ot_header_logo" href="<?php echo Yii::app()->baseUrl;?>"></a>
 				<script type="text/javascript">
 					function verifyNumber() {
 						var number = document.getElementById("what_number").value;
@@ -40,9 +37,12 @@
 						} else {
 							var t = numArr.join("");
 							var numbr = "";
-							if(t.length >= 3) numbr += "("+ t.substring(0, 3) +")"
-							if(t.length >= 6) numbr += t.substring(3, 6) + "-";
-							if(t.length >= 10) numbr += t.substring(6, 10);
+							//alert(t+"----"+ t.substring(3, 6) + "@@@@@@@@@" + t.substring(6, 9));
+							numbr += t.substring(0, 3);
+							if(t.length >= 3) numbr += "-";
+							numbr += t.substring(3, 6);
+							if(t.length >= 6) numbr += "-";
+							numbr += t.substring(6, 9);
 							document.getElementById("what_number").value = numbr;
 						}
 						return false;
@@ -88,16 +88,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="footer">
-			<div class="ftrancd">
-				<a href="<?php echo Yii::app()->request->baseUrl; ?>"><span class="footer_anc">Home</span></a>
-				<a href="<?php echo (new Clicky)->areaCodeDirectoryUrl() ?>"><span class="footer_anc">List Of Area Codes</span></a>
-			</div>
-			<div class="copy-wrapper">				
-				<p class="data"><?php echo Yii::t("custom", "site.domain"); ?></p>
-				<p class="copyright">Copyright &copy; <?php echo date("Y")?> <a href="<?php echo Yii::t("custom", "site.domain"); ?>"><?php echo Yii::t("custom", "site.domain"); ?></a> All rights reserved. * Restrictions apply.</p>
-			</div>
-		</div>
+		<?php $this->renderPartial("//include/footer");?>
 	</div>
 </body>
 </html>

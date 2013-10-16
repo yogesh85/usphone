@@ -14,7 +14,7 @@
     width: 68px;
     z-index: 1;
 }
-}
+
 .chsp1 { 
 	background: url("../images/register-arrow.gif") no-repeat scroll 185px 0 transparent;
 	color: green;
@@ -22,6 +22,7 @@
 	font-size: 18px;
 	font-weight: bold;
 	margin: 20px 2px 9px 10px;
+	text-align:start;
 	width: 230px;
 }
 .chsp2 { 
@@ -89,11 +90,12 @@
 	float: left;
 	font-size: 15px;
 	line-height: 21px;
+	margin-left: 12px; 
 	margin-top: -9px; 
 }
 .chk10 { float:right; }
 .chk11 { font-size: 15px; margin-top: 65px; }
-.chk12 { float:left;margin-top: -7px;line-height; }
+.chk12 { float:left;margin-top: -7px;line-height:21px; margin-left: 12px;  }
 .chk13 { float:right;margin-top: 4px; }
 .specialoffer { color:#980000 }
 #off25 { 
@@ -115,9 +117,30 @@
 	text-indent: -999px;
 	width: 44px;
 }
+#off50 {
+    background: url("../images/50off.png") no-repeat scroll 0 0 transparent;
+    display: block;
+    float: left;
+    height: 50px;
+    margin: 2px 7px 0 4px;
+    overflow: hidden;
+    text-indent: -999px;
+    width: 51px;
+}
+#off88 {
+    background: url("../images/88off.png") no-repeat scroll 0 0 transparent;
+    display: block;
+    float: left;
+    height: 50px;
+    margin: 2px 7px 0 4px;
+    overflow: hidden;
+    text-indent: -999px;
+    width: 51px;
+}
 .chkhd {
 	font-size: 19px;
 	font-weight: bold;
+	min-height: 55px;
 	text-align: center;
 }
 .chkbdt {
@@ -132,7 +155,7 @@ ul.chkul li { background:url("../images/right.gif") no-repeat scroll 0 5px trans
 .chkul { margin:0 7px; }
 .chkul li { 
 	font-family: Times New Roman;
-	font-size: 15px;
+	font-size: 17px;
 	list-style: none outside none;
 	margin: 3px;
 	padding-left: 15px; 

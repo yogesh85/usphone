@@ -318,6 +318,10 @@ class SiteController extends Controller
 	public function actionAreaCodeDirectory() {
 		$this->render('//site/areaCodeDirectory', array('area_code'=>AreaCode::model()->findAll()));
 	}
+
+	public function actionPrivacy() {
+		$this->render("//site/privacy");
+	}
 	
 	public function SEOshuffle(&$items, $seed=false) {
 		$original = md5(serialize($items));

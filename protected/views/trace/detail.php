@@ -1,4 +1,4 @@
-<?php $this->breadcrumbs=array('Tracing Page'); ?>
+<?php //$this->breadcrumbs=array('Tracing Page'); ?>
 <script type="text/javascript">
 function processNext() {
 	document.location = "<?php echo Clicky::checkoutUrl($area_code, $area_interchange, $digit4);?>";
@@ -30,7 +30,7 @@ $(document).ready(function(){
 	
 	<h1><?php echo $this->title; ?></h1>
 	
-	<table width="100%">
+	<table width="100%" style="margin-top: 20px;">
 		<tr>
 			<td width="45%" align="center">
 				<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBAjGEd30kn_KcA2U5bu7PcwKZWzL4wrbE&sensor=false"></script>
@@ -57,13 +57,13 @@ google.maps.event.addDomListener(window, 'load', initialize);
 					<table>
 						<tr><td width="25%">Owner Name:</td><td width="75%"><a onclick="processNext();" class="ta1">Click Here</a></td></tr>
 						<tr><td>Address:</td><td><a onclick="processNext();" class="ta2">Click Here</a></td></tr>
-						<tr><td>State:</td><td><?php echo $state."($state_code)";?></td></tr>
-						<tr><td>County:</td><td><?php echo $county?></td></tr>
-						<tr><td>Region:</td><td><?php echo $region?></td></tr>
-						<tr><td>Company:</td><td><?php echo $company?></td></tr>
-						<tr><td>Line Type:</td><td><?php echo $usage?></td></tr>
-						<tr><td>Status:</td><td><?php echo $status?></td></tr>
-						<tr><td>Introduced:</td><td><?php echo date("j'S F Y", strtotime($introduced))?></td></tr>	
+						<tr><td>State:</td><td><?php echo (!empty($state)) ? $state."($state_code)" : "NA";?></td></tr>
+						<tr><td>County:</td><td><?php echo (!empty($county)) ? $county : "NA"?></td></tr>
+						<tr><td>Region:</td><td><?php echo (!empty($region)) ? $region : "NA"?></td></tr>
+						<tr><td>Company:</td><td><?php echo (!empty($company)) ? $company : "NA"?></td></tr>
+						<tr><td>Line Type:</td><td><?php echo (!empty($usage)) ? $usage : "NA"?></td></tr>
+						<tr><td>Status:</td><td><?php echo (!empty($status)) ? $status : "NA"?></td></tr>
+						<tr><td>Introduced:</td><td><?php echo (!empty($introduced)) ? date("j'S F Y", strtotime($introduced)) : "NA"?></td></tr>	
 					</table>
 					<span onclick="processNext();" class="ta3">View Full Results</span>
 				</div>
@@ -85,6 +85,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 		'{digit4}' => $digit4,
 	))?></div>
 	<div class="tb1">
+		<?php if(count($comments) == 0) echo "No Comment is available. !!!" ?>
 	<?php foreach($comments as $comment) { ?>		
 		<div class='text'><?php echo $comment['comment']; ?></div>
 	<?php } ?>
