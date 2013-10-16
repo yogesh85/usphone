@@ -18,10 +18,7 @@
 	<div class="master" id="page0">
 		<div id="city_image" class="masthead noprint">		
 			<div class="tabheader ">
-				<ul class="nav spclear">
-					<li class="current ot_header_businesses"><a href="<?php echo Yii::app()->request->baseUrl; ?>"><span>Home</span></a></li>
-					<li class="ot_header_people"><a href="<?php echo (new Clicky)->areaCodeDirectoryUrl() ?>"><span>List Of Area Codes</span></a></li>
-				</ul>
+				<?php $this->renderPartial("//include/header");?>
 			</div>
 		</div><!--end masthead-->
 		<div style="clear:both;font-size:5px;height:7px">&nbsp;</div>
@@ -56,16 +53,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="footer">
-			<div class="ftrancd">
-				<a href="<?php echo Yii::app()->request->baseUrl; ?>"><span class="footer_anc">Home</span></a>
-				<a href="<?php echo (new Clicky)->areaCodeDirectoryUrl() ?>"><span class="footer_anc">List Of Area Codes</span></a>
-			</div>
-			<div class="copy-wrapper">				
-				<p class="data"><?php echo Yii::t("custom", "site.domain"); ?></p>
-				<p class="copyright">Copyright &copy; <?php echo date("Y")?> <a href="<?php echo Yii::t("custom", "site.domain"); ?>"><?php echo Yii::t("custom", "site.domain"); ?></a> All rights reserved. * Restrictions apply.</p>
-			</div>
-		</div>
+		<?php echo $this->renderPartial("//include/footer");?>
 	</div>
 </body>
 </html>
