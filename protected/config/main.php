@@ -48,8 +48,8 @@ return array(
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
-				'phone-call/<number:\d\d\d>'=>'site/areaCode',
-				'<areaCode:\d\d\d>-<areaInterchange:\d\d\d>'=>'site/interchange',
+				'1-<number:\d\d\d>/<numberProxy:\d\d\d>'=>'site/areaCode',
+				'1-<areaCodeProxy:\d\d\d>/<areaCode:\d\d\d>-<areaInterchange:\d\d\d>'=>'site/interchange',
 				'trace/<areaCode:\d\d\d>-<areaInterchange:\d\d\d>-<digit4:\d\d\d\d>'=>'trace/detail',
 				'checkout/<areaCode:\d\d\d>-<areaInterchange:\d\d\d>-<digit4:\d\d\d\d>'=>'trace/checkout',
 				'comment/add/<areaCode:\d\d\d>-<areaInterchange:\d\d\d>-<digit4:\d\d\d\d>'=>'trace/addComment',
@@ -90,7 +90,7 @@ return array(
 				),
 				*/
 			),
-		),
+		),	
 	),
 
 	// application-level parameters that can be accessed

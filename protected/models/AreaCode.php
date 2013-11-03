@@ -6,6 +6,8 @@ Yii::import('AreaCode.*');
 
 class AreaCode extends BaseAreaCode
 {
+	public $min_area_interchange;
+	public $max_area_interchange;
 	// Add your model-specific methods here. This file will not be overriden by gtc except you force it.
 	public static function model($className=__CLASS__)
 	{

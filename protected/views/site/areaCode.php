@@ -1,7 +1,10 @@
 
 <div class="BPcoreContainer" style="width:100%">
-	<?php
-	$this->breadcrumbs=array('Area Code ('.$this->areaCode.')',);	
+	<?php	
+	$this->widget('zii.widgets.CBreadcrumbs', array(
+		'homeLink'=>CHtml::link('Home', Yii::t("custom", "site.url")),
+		'links'=>array( Yii::t("custom", "areaCode.breadcrumb", $params)),
+	));
 	?>
 	<h1><?php echo Yii::t("custom", "areaCode.title", $params)?></i></h1>
 	<div class="th1"><?php echo Yii::t("custom", "areaCode.header1", $params)?></div>
@@ -144,7 +147,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 	<div class="th1"><?php echo Yii::t("custom", "areaCode.header4", $params)?></div>
 	<div class="tb1">
 		<?php foreach($this->comments as $comment) { ?>
-		<div><a class='b' title='<?php echo $comment['phone_number']; ?>' href='<?php echo (new Clicky)->areaInterchangeUrl($comment['area_code'], $comment['area_interchange_code'])?>'>(<?php echo $comment['area_code']?>) <?php echo $comment['area_interchange_code']."-".substr($comment['phone_number'], -3)?></a><span class='rt date'><?php echo date("j'S F Y \a\\t g:i a", strtotime($comment['timestamp']))?></span></div>
+		<div><a class='b' title='<?php echo $comment['phone_number']; ?>' href='<?php echo (new Clicky)->areaInterchangeUrl($comment['area_code'], $comment['area_interchange_code'])?>'>(<?php echo $comment['area_code']?>) <?php echo $comment['area_interchange_code']."-".substr($comment['phone_number'], -4)?></a><span class='rt date'><?php echo date("j'S F Y \a\\t g:i a", strtotime($comment['timestamp']))?></span></div>
 		<div class='text'><?php echo $comment['comment']; ?></div>
 	<?php } ?>
 	</div>

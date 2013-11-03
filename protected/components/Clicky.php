@@ -31,10 +31,10 @@ class Clicky extends CComponent {
 	}
 	
 	public function areaCodeUrl($areaCode) {
-		return Yii::app()->baseUrl."/phone-call/".$areaCode;
+		return Yii::app()->baseUrl."/1-$areaCode/$areaCode";
 	}
 	public function areaInterchangeUrl($areaCode, $areaInterchange) {
-		return Yii::app()->baseUrl."/".$areaCode."-".$areaInterchange;
+		return Yii::app()->baseUrl."/1-$areaCode/$areaCode-$areaInterchange";
 	}
 	
 	public function nextAreaCodeUrl($area_code) {

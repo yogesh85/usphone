@@ -2742,7 +2742,7 @@ border-right:solid #cccccc 1px;
     background: url("../images/play-button-large-over.png") no-repeat scroll 50% 50% transparent;
 }
 
-.fb_edge_widget_with_comment>span,.fb_edge_widget_with_comment>span>iframe { height:33px !important; }
+.fb_edge_widget_with_comment>span,.fb_edge_widget_with_comment>span>iframe { height:63px !important; }
 
 .business .rating {
 	margin-bottom: 3px;

@@ -5,12 +5,12 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="language" content="en" />
 
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/bundle.css" />
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/profile.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo Yii::t("custom", "site.url"); ?>/css/bundle.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo Yii::t("custom", "site.url"); ?>/css/profile.css" />
 
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
-	<meta name="keywords" content="<?php echo CHtml::encode($this->description); ?>">
-	<meta name="description" content="<?php echo CHtml::encode($this->keyword); ?>">
+	<meta name="keywords" content="<?php echo CHtml::encode($this->keyword); ?>">
+	<meta name="description" content="<?php echo CHtml::encode($this->description); ?>">
 </head>
 
 <body id="idneededforprint">
@@ -20,7 +20,7 @@
 				<?php $this->renderPartial("//include/header");?>
 			</div>
 			<div class="search-bar spclear;">
-				<a title="Yellow Pages" class="logo ot_header_logo" href="<?php echo Yii::app()->baseUrl;?>"></a>
+				<a class="logo ot_header_logo" href="<?php echo Yii::t("custom", "site.url");?>"></a>
 				<script type="text/javascript">
 					function verifyNumber() {
 						var number = document.getElementById("what_number").value;
@@ -32,7 +32,7 @@
 						}
 						if(numArr.length==10) {
 							var url = numArr.join("");
-							url = "<?php echo Yii::app()->request->baseUrl;?>/trace/" + url.substring(0, 3) + "-" + url.substring(3, 6) + "-" + url.substring(6, 11);
+							url = "<?php echo Yii::t("custom", "site.url");?>/trace/" + url.substring(0, 3) + "-" + url.substring(3, 6) + "-" + url.substring(6, 11);
 							document.location = url;
 						} else {
 							var t = numArr.join("");

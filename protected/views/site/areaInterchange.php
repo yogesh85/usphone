@@ -1,7 +1,16 @@
 
 
 <div class="BPcoreContainer" style="width:100%">
-	<?php $this->breadcrumbs=array('Area Code ('.$this->areaCode.')'=>(new Clicky)->areaCodeUrl($this->areaCode), ucfirst($params['{city}'])." ({$this->areaCode})-{$this->areaInterchange}"); ?>
+	<?php 
+	$this->widget('zii.widgets.CBreadcrumbs', array(
+		'homeLink'=>CHtml::link('Home', Yii::t("custom", "site.url")),
+		'links'=>array(
+			Yii::t("custom", "areaInterchange.areaCode.breadcrumb", $params)=>(new Clicky)->areaCodeUrl($this->areaCode), 
+			Yii::t("custom", "areaInterchange.breadcrumb", $params)
+		),
+	));
+	
+	?>
 	<h1><?php echo Yii::t("custom", "areaInterchange.title", $params)?></i></h1>
 	<div class="th1"><?php echo Yii::t("custom", "areaInterchange.header1", $params)?></div>
 	<div class="tb1">
@@ -91,7 +100,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 	<div class="th1"><?php echo Yii::t("custom", "areaInterchange.header4", $params)?></div>
 	<div class="tb1">
 		<?php foreach($this->comments as $comment) { ?>
-		<div><a class='b' title='<?php echo $comment['phone_number']; ?>' href='<?php echo (new Clicky)->areaInterchangeUrl($comment['area_code'], $comment['area_interchange_code'])?>'>(<?php echo $comment['area_code']?>) <?php echo $comment['area_interchange_code']."-".substr($comment['phone_number'], -3)?></a><span class='rt date'><?php echo date("j'S F Y \a\\t g:i a", strtotime($comment['timestamp']))?></span></div>
+		<div><a class='b' title='<?php echo $comment['phone_number']; ?>' href='<?php echo (new Clicky)->areaInterchangeUrl($comment['area_code'], $comment['area_interchange_code'])?>'>(<?php echo $comment['area_code']?>) <?php echo $comment['area_interchange_code']."-".substr($comment['phone_number'], -4)?></a><span class='rt date'><?php echo date("j'S F Y \a\\t g:i a", strtotime($comment['timestamp']))?></span></div>
 		<div class='text'><?php echo $comment['comment']; ?></div>
 	<?php } if(count($this->comments) == 0) { echo "<div class='text'>No Review Available for ({$this->areaCode}){$this->areaInterchange}-XXXX</div>"; }?>
 	</div>

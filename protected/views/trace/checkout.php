@@ -2,16 +2,16 @@
 
 <script type="text/javascript">
 function  forward1() {
-	document.location = "http://localhost/p1";
+    document.location = "https://www.peoplesmart.com/PSP.aspx?_act=checkoutPDI&Phone=<?php echo $area_code."-".$area_interchange."-".$digit4?>&aff=<?php echo Constants::PEOPLESMART_SITE_AFF;?>&tid=<?php echo str_replace("www.", "", Yii::t('custom', "site.domain"));?>&siteName=<?php echo Yii::t('custom', "site.domain");?>&bid=PhoneMembership095";
 }
 function  forward2() {
-	document.location = "http://localhost/p2";
+	document.location = "https://www.peoplesmart.com/PSP.aspx?_act=checkoutPDI&Phone=<?php echo $area_code."-".$area_interchange."-".$digit4?>&aff=<?php echo Constants::PEOPLESMART_SITE_AFF;?>&tid=<?php echo str_replace("www.", "", Yii::t('custom', "site.domain"));?>&siteName=<?php echo Yii::t('custom', "site.domain");?>&bid=PhoneReport";
 }
 function  forward3() {
-	document.location = "http://localhost/p3";
+	document.location = "https://www.peoplesmart.com/PSP.aspx?_act=checkoutPDI&Phone=<?php echo $area_code."-".$area_interchange."-".$digit4?>&aff=<?php echo Constants::PEOPLESMART_SITE_AFF;?>&tid=<?php echo str_replace("www.", "", Yii::t('custom', "site.domain"));?>&siteName=<?php echo Yii::t('custom', "site.domain");?>&bid=PhoneBackgroundMembership1995";
 }
 function  forward4() {
-	document.location = "http://localhost/p4";
+	document.location = "https://www.peoplesmart.com/PSP.aspx?_act=checkoutPDI&Phone=<?php echo $area_code."-".$area_interchange."-".$digit4?>&aff=256&tid=<?php echo Yii::t('custom', "site.domain");?>&siteName=<?php echo str_replace("www.", "", Yii::t('custom', "site.domain"));?>&bid=PhoneBackgroundReport";
 }
 </script>
 
@@ -51,11 +51,11 @@ Includes unlimited people searches, email searches, phone lookups and available 
 				
 				<div class="chk8">
 					<div class="chk9">Report + Free Trial* <div class="currenc">$0.95</div></div>
-					<div class="chk10"><span class="green" onclick="forward1();">Free Trial</span></div>
+					<div class="chk10"><a href="https://www.peoplesmart.com/PSP.aspx?_act=checkoutPDI&Phone=<?php echo $area_code."-".$area_interchange."-".$digit4?>&aff=<?php echo Constants::PEOPLESMART_SITE_AFF;?>&tid=<?php echo str_replace("www.", "", Yii::t('custom', "site.domain"));?>&siteName=<?php echo Yii::t('custom', "site.domain");?>&bid=PhoneMembership095"><span class="green">Free Trial</span></a></div>
 				</div>
 				<div class="chk11">
 					<div class="chk12">Report Only <div class="currenc">$9.95</div></div>
-					<div class="chk13"><span class="blue" onclick="forward2();">Buy Now</span></div>
+					<div class="chk13"><a href="https://www.peoplesmart.com/PSP.aspx?_act=checkoutPDI&Phone=<?php echo $area_code."-".$area_interchange."-".$digit4?>&aff=<?php echo Constants::PEOPLESMART_SITE_AFF;?>&tid=<?php echo str_replace("www.", "", Yii::t('custom', "site.domain"));?>&siteName=<?php echo Yii::t('custom', "site.domain");?>&bid=PhoneReport"><span class="blue" >Buy Now</span></a></div>
 				</div>
 			</div>
 			
@@ -91,14 +91,20 @@ Includes unlimited people searches, email searches, phone lookups and available 
 Includes unlimited people searches, email searches, phone lookups and available public records. Membership is free for 7 days then automatically billed for $19.95 per month. 
 				</div>
 			
+    			
+    			<style type="text/css">
+    			#BPcontainer a:hover {
+					text-decoration:none;
+				}
+				</style>
 				<div class="chk8">
-					<div class="chk9">Report + Free Trial* <div class="currenc">$29.95</div></div>
-					<div class="chk10"><span class="green" onclick="forward3();">Free Trial</span></div>		
+					<div class="chk9">Report + Free Trial* <div class="currenc">$19.95</div></div>
+					<div class="chk10"><a href="https://www.peoplesmart.com/PSP.aspx?_act=checkoutPDI&Phone=<?php echo $area_code."-".$area_interchange."-".$digit4?>&aff=<?php echo Constants::PEOPLESMART_SITE_AFF;?>&tid=<?php echo str_replace("www.", "", Yii::t('custom', "site.domain"));?>&siteName=<?php echo Yii::t('custom', "site.domain");?>&bid=PhoneBackgroundMembership1995"><span class="green" >Free Trial</span></a></div>		
 					<div class="bstdl"></div>			
 				</div>
 				<div class="chk11">
 					<div class="chk12">Report Only <div class="currenc">$39.95</div></div>
-					<div class="chk13"><span class="blue" onclick="forward4();">Buy Now</span></div>
+					<div class="chk13"><a href="https://www.peoplesmart.com/PSP.aspx?_act=checkoutPDI&Phone=<?php echo $area_code."-".$area_interchange."-".$digit4?>&aff=256&tid=<?php echo Yii::t('custom', "site.domain");?>&siteName=<?php echo str_replace("www.", "", Yii::t('custom', "site.domain"));?>&bid=PhoneBackgroundReport"><span class="blue" >Buy Now</span></a></div>
 					
 				</div>				
 				

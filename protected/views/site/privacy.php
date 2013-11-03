@@ -22,7 +22,7 @@
 			<p>This Privacy Policy may be modified from time to time. Any modifications to our Privacy Policy will be reflected on this page.</p>
 
 			<h2>Questions and comments.</h2>
-			<p>Questions regarding this privacy statement should be submitted via the <a href="<?php echo Yii::app()->baseUrl?>"><?php echo Yii::t("custom", "site.domain"); ?></a>.</p>
+			<p>Questions regarding this privacy statement should be submitted via the <a href="<?php echo Yii::t("custom", "site.url")?>"><?php echo Yii::t("custom", "site.domain"); ?></a>.</p>
 
 	</div>
 	

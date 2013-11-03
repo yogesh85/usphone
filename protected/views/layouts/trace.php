@@ -5,9 +5,9 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="language" content="en" />
 
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/bundle.css" />
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/profile.css" />
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/checkout.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo Yii::t("custom", "site.url"); ?>/css/bundle.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo Yii::t("custom", "site.url"); ?>/css/profile.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo Yii::t("custom", "site.url"); ?>/css/checkout.css" />
 	<style>#idneededforprint { background:none; } </style>
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 	<meta name="keywords" content="<?php echo CHtml::encode($this->description); ?>">

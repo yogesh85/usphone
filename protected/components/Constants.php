@@ -53,7 +53,7 @@ class Constants {
 	const HELLOMOONROCK_COMMENT_URL = "http://www.hellomoonrock.com/scrapper/JsonComments/";
     
     const PEOPLESMART_SITE_REFERENCE = "phoneinfo";
-    const PEOPLESMART_SITE_AFF = "273";
+    const PEOPLESMART_SITE_AFF = "256";
     
     const USEPROXY = false;
 

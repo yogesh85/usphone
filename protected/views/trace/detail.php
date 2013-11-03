@@ -5,13 +5,13 @@ function processNext() {
 }
 
 </script>
-<script src="<?php echo Yii::app()->request->baseUrl;?>/js/jquery.min.js"></script>
+<script src="<?php echo Yii::t("custom", "site.url");?>/js/jquery.min.js"></script>
 <script>
 $(document).ready(function(){
 	$("#sbmt").click(function(){
 		$("#comment_msg").html("");
 		$("#comment_msg").css("color", "#64BCF7");
-		$.post("<?php echo Yii::app()->request->baseUrl?>/comment/add/<?php echo $area_code."-".$area_interchange."-".$digit4?>",
+		$.post("<?php echo Yii::t("custom", "site.url")?>/comment/add/<?php echo $area_code."-".$area_interchange."-".$digit4?>",
 			{ user_name:$("#usrnm").val(), comment:$("#comment_txt").val() },
 			function(data,status) {
 				var obj;

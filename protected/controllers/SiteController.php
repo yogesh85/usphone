@@ -104,7 +104,11 @@ class SiteController extends Controller
 		}
 	}
 	
-	public function actionAreaCode($number) {
+	public function actionAreaCode($number, $numberProxy = null) {
+		
+		if($number != $numberProxy) {
+			throw new CHttpException(404,"OOps !! It seems you entered wrong url !!!!!!!!");
+		}
 		
 		$this->areaCode = $number;
 		Clicky::trace($this->areaCode);
@@ -144,12 +148,16 @@ class SiteController extends Controller
 			$this->lat = @$zip->lat;
 			$this->long = @$zip->long;
 						
+			$data = Yii::app()->db->createCommand("select min(area_interchange) as min_area_interchange, max(area_interchange) as max_area_interchange from ".AreaInterchange::model()->tableName()." where area_code = {$this->areaCode}")->queryRow();
+			
 			$params = array(
 				"{area_code}" => $this->areaCode,
 				"{state}" => $this->state,
 				"{state_code}" => $this->stateCode,
 				"{lat}" => $this->lat,
 				"{long}" => $this->long,
+				"{lowestAreaInterchange}" => $data['min_area_interchange'],
+				"{largestAreaInterchange}" => $data['max_area_interchange'],
 			);			
 			
 			$this->pageTitle = Yii::t("custom", "areaCode.titletag", $params);
@@ -174,7 +182,12 @@ class SiteController extends Controller
 		
 	}
 	
-	public function actionInterchange($areaCode, $areaInterchange) {
+	public function actionInterchange($areaCode, $areaInterchange, $areaCodeProxy = null) {
+		
+		if($areaCode != $areaCodeProxy) {
+			throw new CHttpException(404,"OOps !! It seems you entered wrong url !!!!!!!!");
+		}
+		
 		$this->areaCode = $areaCode;
 		$this->areaInterchange = $areaInterchange;
 		Clicky::trace($this->areaCode, $this->areaInterchange);
@@ -316,10 +329,16 @@ class SiteController extends Controller
 	}
 	
 	public function actionAreaCodeDirectory() {
+	
+		$this->pageTitle = Yii::t("custom", "area_code_list.titletag");
+		$this->description = Yii::t("custom", "area_code_list.descriptiontag");
+		$this->keyword = Yii::t("custom", "area_code_list.keyword");
+
 		$this->render('//site/areaCodeDirectory', array('area_code'=>AreaCode::model()->findAll()));
 	}
 
 	public function actionPrivacy() {
+		$this->pageTitle = Yii::t("custom", "privacy.title");
 		$this->render("//site/privacy");
 	}
 	
