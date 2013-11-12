@@ -33,6 +33,7 @@ class Proxy{
     }
     function get_result($url,$useProxy = Constants::USEPROXY,$cookie='PREF=;'){
          //$proxy = $this->getProxy();
+          $url = Constants::$google_proxy[ceil(rand(0, count(Constants::$google_proxy) - 1))]."/".str_replace(array("http://", "https://"), "", $url);
          $ch = curl_init();
          curl_setopt($ch, CURLOPT_URL, $url);
          curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);

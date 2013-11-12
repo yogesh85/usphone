@@ -73,9 +73,9 @@ class ManageTables extends CDbMigration {
      * */
     public function flushComments($rowTOKeep){
 		
-        $tableName = 'comments';
+        $tableName = 'comment';
         
-        $sql = "select count(*) as total from comments";
+        $sql = "select count(*) as total from comment";
         $connection = Yii::app() -> db;
         $command = $connection -> createCommand($sql);
         $command = $command -> queryRow();

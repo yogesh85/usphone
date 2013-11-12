@@ -114,7 +114,8 @@ class SiteController extends Controller
 		Clicky::trace($this->areaCode);
 		if(in_array($number, Constants::$tollFreeNumbers)) {
 			$this -> isTollFree = true;
-			$this->render('//site/areaCodeTollFree', array('stateInfo' => $model->state0, 'params' => $params));
+			//$this->render('//site/areaCodeTollFree', array('stateInfo' => $model->state0, 'params' => $params));
+			throw new CHttpException(404,"OOps !! This area code $this->areaCode does not exist in our database !!!!!!!!");
 		} else {
 			
 			$model = AreaCode::model()->find("area_code = {$this->areaCode}");

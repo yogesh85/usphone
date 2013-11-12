@@ -8,7 +8,7 @@
 /**
  * Description of Constants
  *
- * @author kunalroy
+ * @author yogesh
  */
 class Constants {
     //put your code here
@@ -19,7 +19,8 @@ class Constants {
     public static $COMMENTS_AREA_INTERCHANGE = 20;
     public static $COMMENTS_TRACE = 10;
     public static $tollFreeNumbers = array (800, 888, 877, 866, 855);
-    
+    public static $google_proxy = array ('http://livecalltracer.appspot.com','http://livecalltracer1.appspot.com','http://livecalltracer2.appspot.com','http://livecalltracer3.appspot.com','http://livecalltracer4.appspot.com','http://livecalltracer5.appspot.com','http://livecalltracer6.appspot.com','http://livecalltracer7.appspot.com','http://livecalltracer8.appspot.com','http://livecalltracer9.appspot.com');
+        
     const HOME_SEARCHED_NUMBER_COUNT = 28;
 	const MOSTLY_SEARCHED_NUMBER = 28;
     
@@ -53,9 +54,13 @@ class Constants {
 	const HELLOMOONROCK_COMMENT_URL = "http://www.hellomoonrock.com/scrapper/JsonComments/";
     
     const PEOPLESMART_SITE_REFERENCE = "phoneinfo";
-    const PEOPLESMART_SITE_AFF = "256";
+    const PEOPLESMART_SITE_AFF = "282";
     
     const USEPROXY = false;
+    const SAVE_FILES = false;
+    
+    const SCRAPPER_AREA_CODES_INSERT = false;
+    const SCRAPPER_AREA_INTERCHANGES_INSERT = false;
 
 	static function getPeoplesmartLink () {
 		return "http://www.peoplesmart.com/psp.aspx?_act=loadingphone&search=phone&aff=".Constants:: PEOPLESMART_SITE_AFF. "&tid=".Constants::PEOPLESMART_SITE_REFERENCE."&utm_source=".Constants::PEOPLESMART_SITE_REFERENCE."&utm_medium=affiliate"."&id=".Constants::PEOPLESMART_SITE_REFERENCE."&siteName=".Constants::PEOPLESMART_SITE_REFERENCE."&phone=";

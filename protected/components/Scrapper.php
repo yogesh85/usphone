@@ -1,7 +1,6 @@
 <?php
 
 class Scrapper extends CComponent{
-    //put your code here
         
         protected $proxy;
         protected $commentArray = array();
@@ -19,7 +18,7 @@ class Scrapper extends CComponent{
             $content = $this->proxy->get_result(Constants::HELLOMOONROCK_AREA_CODE_URL."date/$date", false);
             $content_array = json_decode($content);   
             foreach($content_array as $val) {
-                $db = AreaCodes::model()->find("area_code = :area_code", array(':area_code' => $val->area_code));
+                $db = AreaCode::model()->find("area_code = :area_code", array(':area_code' => $val->area_code));
                 if(count($db) == 0) {
                     $db = new AreaCode();
                     $db -> area_code = $val->area_code;
@@ -51,9 +50,9 @@ class Scrapper extends CComponent{
                    
                     $db -> save();
                 }
-            }*/
+            }
             unset($content);unset($content_array);   
-           
+			*/
             $content = $this->get_result(Constants::HELLOMOONROCK_COMMENT_URL."date/$date", false);
             file_put_contents("comment_json", $content."\n", FILE_APPEND);
             $content_array = json_decode($content);   
@@ -80,7 +79,6 @@ class Scrapper extends CComponent{
             
             $dom = new DOMDocument();
             @$dom->loadHTML($content);
-            // grab all the links on the page
             $xpath = new DOMXPath($dom);
             
             $elements = $xpath->query("//div[@class='tbl report_listing']");
@@ -97,8 +95,7 @@ class Scrapper extends CComponent{
                     $callerTypeEndIndex = strpos($rawComment, 'Phone Number Owner:');
                     $callerOwnerStartIndex = strpos($rawComment, 'Phone Number Owner:') + 19;
                     $callerOwnerEndIndex = strpos($rawComment, 'Phone Number Report:');
-                }
-                else{
+                } else{
                     $callerTypeEndIndex = strpos($rawComment, 'Phone Number Report:');
                     $callerOwnerStartIndex = -1;
                     $callerOwner = 'Unknown';
@@ -127,18 +124,14 @@ class Scrapper extends CComponent{
             
             $dom = new DOMDocument();
             @$dom->loadHTML($content);
-            // grab all the links on the page
             $xpath = new DOMXPath($dom);
             
             $elements = $xpath->query("//div[@class='comment']");
             
             $length = $elements->length;
             for($x = 0; $x < $length; $x++){
-                $element = $elements->item($x);
-                
-                $number = $element->getElementsByTagName('a')->item(0)->nodeValue;
-                //var_dump($anchorList->item(0)->nodeValue);
-                
+                $element = $elements->item($x);                
+                $number = $element->getElementsByTagName('a')->item(0)->nodeValue;                
                 $element->removeChild($element->getElementsByTagName('h3')->item(0));
                 $this->addCommentToArray($element->nodeValue, $number);
             }
@@ -153,19 +146,15 @@ class Scrapper extends CComponent{
             
             $dom = new DOMDocument();
             @$dom->loadHTML($content);
-            // grab all the links on the page
             $xpath = new DOMXPath($dom);
             
             $elements = $xpath->query("//div[@id='complaint']");
             
-            foreach($elements as $element){
-                
+            foreach($elements as $element){                
                 $anchorList = $element->getElementsByTagName('a');
-                $commentList = $element->getElementsByTagName('p');
-                
+                $commentList = $element->getElementsByTagName('p');                
                 $number = $anchorList->item(0)->nodeValue;
-                $number = str_replace(":", "", $number);
-                
+                $number = str_replace(":", "", $number);                
                 $this->addCommentToArray($commentList->item(0)->nodeValue, $number);
             }
             
@@ -242,11 +231,11 @@ class Scrapper extends CComponent{
                 FileHandler::write(Constants::getNotesFileSavePath(), Constants::NOTES_FILE_NAME_PREFIX . date("Ymd-H-i-s") . ".html", $content);
             
             $dom = new DOMDocument();
-		@$dom->loadHTML($content);
-		// grab all the links on the page
-		$xpath = new DOMXPath($dom);
+			@$dom->loadHTML($content);
+			// grab all the links on the page
+			$xpath = new DOMXPath($dom);
 
-		$elements = $xpath->query("//li[@class='oos_l1']");
+			$elements = $xpath->query("//li[@class='oos_l1']");
                 
                 //$commentArray = Array();
                 
@@ -283,7 +272,6 @@ class Scrapper extends CComponent{
             $owner = trim(preg_replace('/[^a-zA-Z0-9_ %\[\]\.\(\)%&-:]/s', '', $owner));
             $callerType = trim(preg_replace('/[^a-zA-Z0-9_ %\[\]\.\(\)%&-:]/s', '', $callerType));
             
-            //$number = str_replace($regex, $replace, $subject);
             $this->commentArray[] = array(
                 'comment' => trim($comment),
                 'number' => trim($number),
@@ -292,9 +280,6 @@ class Scrapper extends CComponent{
         }
         
         protected function saveComments(){
-            //write the code to save the comments to the database
-            //check if the comment is already existing
-            
             $insertedCount = 0;
             $this->validateComments();
             foreach ($this->commentArray as $commentItem){              
@@ -312,10 +297,10 @@ class Scrapper extends CComponent{
                 $number = preg_replace("/^(\d{3})(\d{3})(\d{4})$/", "$1-$2-$3", $commentItem['number']);                
                 $numberSplits = explode('-', $number);
                 
-                $exists = Comment::model()->findAll('phone_number=:phone_number AND comment=:comment_text', array('phone_number' => $number, 'comment_text' => $commentItem['comment']));
+                $exists = Comment::model(null, $numberSplits[0])->findAll('phone_number=:phone_number AND comment=:comment_text', array('phone_number' => $number, 'comment_text' => $commentItem['comment']));
                 
-                //if(!$this->validateAreaInterchange($numberSplits[0], $numberSplits[1], $number))	continue;
-				//if(!$this->validateAreaCode($numberSplits[0]))	continue;                
+                if(!$this->validateAreaInterchange($numberSplits[0], $numberSplits[1], $number))	continue;
+				if(!$this->validateAreaCode($numberSplits[0]))	continue;                
                 
                 if(!$exists) {
 					$insertedCount++;
@@ -331,11 +316,10 @@ class Scrapper extends CComponent{
                     if(!$comment->save()){
                         Yii::log($comments->getErrors());
                     }
-                }
-                else{
+                } else{
                     echo "Skipping.." . $number . "<BR>";
                 }
-              }  
+			}  
                 
             Yii::log($_SERVER['REQUEST_URI'] . ". Total Comments Read: " . count($this->commentArray) . ", Total Inserted: " . $insertedCount);
             echo "Success ";
@@ -348,7 +332,7 @@ class Scrapper extends CComponent{
         private function get_result($url){
             $content = $this->proxy->get_result($url);
             if(!$content){
-                $this->alerts->alert("Error occured while accessing url: ". $url);
+                Yii::log("Error occured while accessing url: ". $url);
                 return false;
             }
             
@@ -362,12 +346,12 @@ class Scrapper extends CComponent{
         
         public function validateAreaInterchange($areaCode, $areaInterchangeText, $number){
             
-			if($this->isTollFreeNumber($areaCode)) return true;             
+			if($this->isTollFreeNumber($areaCode)) return false;             
 			//check if the area_code or the area interchanges are not present
 			$areaInterchange = AreaInterchange::model()->find('area_code=:area_code AND area_interchange=:area_interchange', array('area_code' => $areaCode, 'area_interchange' => $areaInterchangeText));
                 
 			if($areaInterchange == null){
-                    
+                    if(Constants::SCRAPPER_AREA_INTERCHANGES_INSERT) return false;
                     $areaInterchangeInstance = new AreaInterchange();
                     $areaInterchangeInstance->area_interchange = $areaInterchangeText;
                     $areaInterchangeInstance->area_code = $areaCode;
@@ -377,7 +361,6 @@ class Scrapper extends CComponent{
                     $peopleSmart->fetchData();
                     
                     if(null == $peopleSmart->_city){
-                        //var_dump($peopleSmart);
                         Yii::log("$areaCode-$areaInterchangeText does not exist in the Peoplesmart database. Skipping the comment. ");
                         var_dump("$areaCode-$areaInterchangeText does not exist in the Peoplesmart database. Skipping the comment. ");
                         return false;
@@ -394,7 +377,6 @@ class Scrapper extends CComponent{
                     $areaInterchangeInstance->state = $peopleSmart->_state;
                     
                     if(!$areaInterchangeInstance->save()){
-                        //Yii::log($areaInterchangeInstance->getErrors());
                         var_dump($areaInterchangeInstance->getErrors());
                         return false;
                     }
@@ -410,30 +392,30 @@ class Scrapper extends CComponent{
         public function validateAreaCode($areaCodeText){
             
             if($this->isTollFreeNumber($areaCodeText)){
-               return true; 
+               return false; 
             }
             
-            $areaCode = AreaCodes::model()->find('area_code=:area_code',array('area_code' => $areaCodeText));
+            $areaCode = AreaCode::model()->find('area_code=:area_code',array('area_code' => $areaCodeText));
                 
-                if($areaCode == null){
-                    Yii::log("Adding area code for: " . $areaCodeText);
-                    var_dump("Adding area code for: " . $areaCodeText);
-                    
-                    //create area_code table if it does not exist already
-                    $this->manageTables->createAreaCodeTable($areaCodeText);
-                    
-                    $areaCode = new AreaCodes();
-                    $areaCode->area_code = $areaCodeText;
-                    if(!$areaCode->save()){
-                        Yii::log($areaCode->getErrors());
-                        var_dump($areaCode->getErrors());
-                        return false;
-                    }
-                    return true;
-                }
-                else {
-                    return true;
-                }
+			if($areaCode == null){
+				if(Constants::SCRAPPER_AREA_CODES_INSERT) return false;
+				Yii::log("Adding area code for: " . $areaCodeText);
+				var_dump("Adding area code for: " . $areaCodeText);
+				
+				//create area_code table if it does not exist already
+				$this->manageTables->createAreaCodeTable($areaCodeText);
+				
+				$areaCode = new AreaCodes();
+				$areaCode->area_code = $areaCodeText;
+				if(!$areaCode->save()){
+					Yii::log($areaCode->getErrors());
+					var_dump($areaCode->getErrors());
+					return false;
+				}
+				return true;
+			} else {
+				return true;
+			}
         }
         
         public function isTollFreeNumber($areaCodeText){
